@@ -1,24 +1,25 @@
 #ifndef PARTIDA_H
 #define PARTIDA_H
 //ESTA CABECERA NO ESTÁ TERMINADA
+#include "librerias.h"
 #include "jugadores.h"
 #include "salas.h"
 #include "conexiones.h"
 #include "puzles.h"
 
-typedef struct conexunlocked{
+typedef struct {
     char id_conexion[4];
     bool activa; 
 
-};
+}conexunlocked;
 
-typedef struct puzleresuelto{
+typedef struct {
     char id_puzle[4];   
     bool resuelto;
-};
+}puzleresuelto;
 
 
-typedef struct partida{
+typedef struct {
     
     jugador jug_actual;           
     char sala_actual[3];          
@@ -28,6 +29,6 @@ typedef struct partida{
     int num_puzles;
 
 
-};
+}partida;
 
 #endif
