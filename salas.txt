@@ -1,0 +1,30 @@
+01-Conserjería-NORMAL-Pequeño habitáculo con mostrador que se encuentra a la entrada de la ESI, antes de acceder al Hall
+02-Escalera principal-NORMAL-Escalera principal de subida a la primera planta situada frente a conserjería
+03-Cafetería-NORMAL-Cafetería situada en la primera planta, después de subir la escalera principal
+04-Hall principal-NORMAL-Espacio amplio situado tras la entrada principal donde se distribuyen los accesos a diferentes zonas de la ESI
+05-Pasillo norte-NORMAL-Pasillo situado en la planta baja que conecta varias aulas y laboratorios del ala norte
+06-Pasillo sur-NORMAL-Pasillo situado en la planta baja que conecta diferentes despachos y salas del ala sur
+07-Aula 1-NORMAL-Aula destinada a clases teóricas situada en la planta baja cerca del pasillo norte
+08-Aula 2-NORMAL-Aula destinada a clases teóricas situada junto al aula 1 en la planta baja
+09-Aula 3-NORMAL-Aula situada en la primera planta utilizada para clases y seminarios
+10-Aula informática 1-NORMAL-Aula equipada con ordenadores para prácticas de programación y software
+11-Aula informática 2-NORMAL-Aula con equipos informáticos destinada a prácticas de distintas asignaturas
+12-Laboratorio de redes-NORMAL-Laboratorio equipado con dispositivos de red para prácticas de comunicaciones
+13-Laboratorio de hardware-NORMAL-Sala equipada con material electrónico para prácticas de hardware
+14-Sala de estudio 1-NORMAL-Sala tranquila destinada al estudio individual o en pequeños grupos
+15-Sala de estudio 2-NORMAL-Sala destinada al estudio situada en la primera planta cerca de la biblioteca
+16-Biblioteca-NORMAL-Espacio destinado a la consulta y préstamo de libros y material académico
+17-Despacho profesores 1-NORMAL-Despacho utilizado por profesores para tutorías y trabajo académico
+18-Despacho profesores 2-NORMAL-Despacho situado en la primera planta destinado a personal docente
+19-Sala de reuniones-NORMAL-Sala destinada a reuniones del profesorado o del personal administrativo
+20-Secretaría-NORMAL-Oficina donde se realizan trámites administrativos y gestión académica
+21-Sala de servidores-NORMAL-Sala técnica donde se encuentran los servidores y equipos de red del edificio
+22-Almacén-NORMAL-Sala utilizada para guardar material y equipamiento del centro
+23-Baños planta baja-NORMAL-Baños situados en la planta baja cerca del pasillo sur
+24-Baños primera planta-NORMAL-Baños situados en la primera planta cerca de la cafetería
+25-Sala de descanso-NORMAL-Espacio destinado al descanso de estudiantes con mesas y asientos
+26-Sala de proyectos-NORMAL-Sala utilizada por estudiantes para desarrollar trabajos y proyectos en grupo
+27-Aula magna-NORMAL-Sala grande destinada a conferencias, presentaciones y eventos académicos
+28-Salida de emergencia-NORMAL-Puerta señalizada utilizada como vía de evacuación en caso de emergencia
+29-Escalera secundaria-NORMAL-Escalera situada en el ala sur que conecta la planta baja con la primera planta
+30-Exterior-SALIDA-La salida al exterior está aquí
