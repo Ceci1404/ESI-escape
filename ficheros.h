@@ -1,0 +1,7 @@
+#ifndef FICHEROS_H
+#define FICHEROS_H
+//LECTURA Y ESCRITURA DE FICHEROS
+
+
+
+#endif
