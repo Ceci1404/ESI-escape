@@ -1,4 +1,4 @@
-#include"menu.h"
+#include"manu.h"
 void menu(int x);
 void partida(int p);
 
@@ -13,7 +13,7 @@ return 0;
 void menu(int x){
 do{
     printf("        --ESI SCAPE--     \n");
-    printf("----------\n");
+    printf("        ----------\n");
     printf("1. Nueva partida.\n");
     printf("2. Cargar partida.\n"); 
     printf("3. Salir.\n");
@@ -41,7 +41,7 @@ switch(x){
 
 void partida(int p){
 do{
-    printf("Sala: %s\n");//HABRIA QUE ACCEDER A LA SALA ACTUAL DEL JUGADOR
+    printf("   --Sala: %s--\n");//HABRIA QUE ACCEDER A LA SALA ACTUAL DEL JUGADOR
     putchar("\n");
     
     printf("1. Describir sala.\n");
@@ -100,4 +100,5 @@ switch(p){
 
 } 
 }
+
 
