@@ -1,0 +1,12 @@
+P01-Puzle panel-02-Código-Introduce el código en el panel de la pared-4500
+P02-Caja con tornillos-05-Herramienta-Usa un destornillador para abrir la caja metálica-DEST
+P03-Cerradura biblioteca-16-Llave-Abre la puerta usando la llave correcta-LB16
+P04-Terminal laboratorio-12-Código-Introduce la contraseña en el ordenador del laboratorio-7421
+P05-Panel servidores-21-Tarjeta-Pasa la tarjeta magnética por el lector-SRV
+P06-Archivador cerrado-17-Llave-Abre el cajón usando la llave del despacho-DP17
+P07-Máquina cafetería-03-Código-Introduce el código que aparece en la nota arrugada-3189
+P08-Taquilla estudiantes-14-Llave-Abre la taquilla usando la pequeña llave metálica-TQ14
+P09-Puerta emergencia-28-Llave-Utiliza la llave de emergencia para desbloquear la salida-EM28
+P10-Panel proyectos-26-Código-Introduce la combinación para activar la sala de proyectos-9012
+P11-Caja herramientas-13-Herramienta-Abre la caja usando el destornillador encontrado-HW13
+P12-Ordenador secretaría-20-Código-Introduce el código administrativo para acceder-5567
