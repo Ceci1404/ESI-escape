@@ -5,5 +5,6 @@
 #include "puzles.h"
 #include "jugadores.h"
 #include "partida.h"
+#include "salas.h"
 
 #endif
