@@ -10,6 +10,6 @@
 typefef struct {
   
 
-
+  }descripcion
 
 #endif
