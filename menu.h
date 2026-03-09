@@ -7,7 +7,7 @@
 #include "puzles.h"
 #include "jugadores.h"
 
-typefef struct{
+typefef struct {
   
 
 
