@@ -7,4 +7,7 @@
 #include "partida.h"
 #include "salas.h"
 
+void menu(int x);
+void partida (int p);
+
 #endif
