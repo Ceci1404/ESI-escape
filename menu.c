@@ -1,14 +1,6 @@
-#include"manu.h"
+#include"menu.h.h"
 void menu(int x);
 void partida(int p);
-
-int main(){
-int x=0;
-int p=0;
-menu(x);
-partida(p);
-return 0;
-}
 
 void menu(int x){
 do{
