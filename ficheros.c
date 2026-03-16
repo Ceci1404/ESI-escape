@@ -22,38 +22,80 @@ int total_puzles = 0;
 
 
 void carga_ficheros() {
-    printf("--- Iniciando carga de ficheros ---\n");
+}
+mi_partida.num_puzles = 0;
+    mi_partida.num_conexunlocked = 0;
+    mi_partida.jug_actual.inv.cant_obj = 0;
 
-    FILE* fichero_puzles = fopen("puzles.txt", "r");
+   
+    FILE* f_partida = fopen("partida_guardada.txt", "r");
+    
+    if (f_partida == NULL) {
+        printf("Error: No se encontró el fichero para cargar.\n");
+        return mi_partida; // Devolvemos la partida vacía
+    }
 
-    if (fichero_puzles == NULL) {
-        printf("Aviso: No se encontro 'puzles.txt'. Se usaran los valores por defecto.\n");
-        return; 
+    char etiqueta[50]; 
 
     
-    char id_temporal[50];
-    int estado_temporal;
-
-    
-    while (fscanf(fichero_puzles, "%49s %d", id_temporal, &estado_temporal) == 2) {
+    while (fscanf(f_partida, "%49s", etiqueta) == 1) {
         
-        strcpy(registro_puzles[total_puzles].id, id_temporal);
         
-        if (estado_temporal == 1) {
-            registro_puzles[total_puzles].resuelto = true;
-        } else {
-            registro_puzles[total_puzles].resuelto = false;
+        if (strcmp(etiqueta, "JUGADOR") == 0) {
+           
+            fscanf(f_partida, "%s %s %s %s", 
+                   mi_partida.jug_actual.id_jugador,
+                   mi_partida.jug_actual.nomb_jugador,
+                   mi_partida.jug_actual.jugador,
+                   mi_partida.jug_actual.password);
         }
         
-        total_puzles++; 
+       
+        else if (strcmp(etiqueta, "SALA") == 0) {
+            
+            fscanf(f_partida, "%2s", mi_partida.sala_actual);
+        }
+        
+       
+        else if (strcmp(etiqueta, "TOTAL_PUZLES") == 0) {
+            // Primero leemos cuántos hay
+            fscanf(f_partida, "%d", &mi_partida.num_puzles);
+            
+            
+            for (int i = 0; i < mi_partida.num_puzles; i++) {
+                int estado_resuelto;
+               
+                fscanf(f_partida, "%3s %d", 
+                       mi_partida.puzles_estado[i].id_puzle, 
+                       &estado_resuelto);
+                
+                
+                mi_partida.puzles_estado[i].resuelto = (estado_resuelto == 1);
+            }
+        }
+    
+        else if (strcmp(etiqueta, "TOTAL_CONEXIONES") == 0) {
+            fscanf(f_partida, "%d", &mi_partida.num_conexunlocked);
+            
+            for (int i = 0; i < mi_partida.num_conexunlocked; i++) {
+                int estado_activa;
+                fscanf(f_partida, "%3s %d", 
+                       mi_partida.conex_desbloqueadas[i].id_conexion, 
+                       &estado_activa);
+                       
+                mi_partida.conex_desbloqueadas[i].activa = (estado_activa == 1);
+            }
+        }
     }
 
     
-    fclose(fichero_puzles);
+    fclose(f_partida);
     
-    printf("Exito: Se han cargado %d puzles en la memoria.\n", total_puzles);
-}
+    printf("Infortmacion guardada\n");
     
+    
+    return mi_partida;
+}    
   
 }
 
