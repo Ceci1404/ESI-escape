@@ -1,7 +1,10 @@
 #ifndef PUZLES_H
 #define PUZLES_H
 //#include "salas.h"
-#include "librerias.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 typedef enum{codigo,palabra} tipopuz;
 
 typedef struct {

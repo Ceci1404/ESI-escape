@@ -1,4 +1,4 @@
-#include"menu.h.h"
+#include"menu.h"
 void menu(int x);
 void partida(int p);
 
