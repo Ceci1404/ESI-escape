@@ -8,6 +8,9 @@
 void leerficheros ();
 
 void cargarficheros(){
+  void carga_puzle(const char *idpuzle);
+  void carga_conexines(const char *idconexiones)
+    
   
 }
 
