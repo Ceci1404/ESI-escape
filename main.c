@@ -16,8 +16,10 @@ int main(){
 leerficheros();
 
 
+
 }
 
+// HAY QUE CAMBIAR TODO ESTO
 
 void leerficheros(){
 jugador *ejug;
@@ -58,7 +60,9 @@ sala *esal;
 int nsal;
 nsal= contarsal();
 esal= (sala*) malloc (nsal* sizeof(sala));
-
+leersalas(esal, nsal);
+//mejor hacerlo con un realloc en una misma función para abrir solo una vez el fichero, 
+//en vez de abrirlo una vez para ver la cantidad de lineas que hay y otra para almacenar
 
 
 
