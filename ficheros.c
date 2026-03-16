@@ -2,6 +2,8 @@
 #include<fichero.h>
 #include "partida.h"
 #include "jugadores.h"
+#include "librerias.h"
+
 
 void leerficheros ();
 
