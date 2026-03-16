@@ -38,11 +38,15 @@ nobj= contarobj(eobj);
 eobj= (objetos*) malloc (nobj*sizeof(objetos));
 leerobjetos(eobj,nobj);
 
+ //partida será un único objeto tipo estructura así que no habrá que almacenar sus datos dinámicamente
+/*
 partidas *epar;
 int npar;
 npar=contarpar(epar);
 epar= (partidas*) malloc (npar*sizeof(partidas));
 leerpartidas(epar,npar);
+*/
+
 
 puzle *epuz;
 int npuz;
