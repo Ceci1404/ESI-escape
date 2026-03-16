@@ -3,6 +3,8 @@
 
 void leerficheros ();
 
-void cargarficheros();
+void cargarficheros(){
+  
+}
 
 void nuevapartida(jugador *);
