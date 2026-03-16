@@ -1,8 +1,16 @@
-#include<stdio.h>
-#include<fichero.h>
-#include "partida.h"
+
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "ficheros.h"
+#include "conexiones.h"
 #include "jugadores.h"
-#include "librerias.h"
+#include "objetos.h"
+#include "partida.h"
+#include "puzles.h"
+#include "salas.h"
 
 
 void leerficheros ();
