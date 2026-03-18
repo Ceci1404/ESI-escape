@@ -1,6 +1,9 @@
 #ifndef JUGADORES_H
 #define JUGADORES_H
-#include "librerias.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "objetos.h"
 
 typedef struct {

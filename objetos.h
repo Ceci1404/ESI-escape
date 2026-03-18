@@ -1,7 +1,9 @@
 #ifndef OBJETOS_H
 #define OBJETOS_H
-
-#include "librerias.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct {
     char id_obj[5];

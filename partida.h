@@ -1,7 +1,7 @@
 #ifndef PARTIDA_H
 #define PARTIDA_H
 //ESTA CABECERA NO ESTÁ TERMINADA
-#include "librerias.h"
+
 #include "jugadores.h"
 #include "salas.h"
 #include "conexiones.h"
