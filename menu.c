@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "menu.h"
+#include "conexiones.h"
+#include "puzles.h"
+#include "jugadores.h"
+#include "partida.h"
+#include "salas.h"
 
 void menu_principal();
 void menu_juego(partida *p_actual);

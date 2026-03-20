@@ -8,8 +8,8 @@
 typedef struct {
     char id_obj[5];
     char nomb_obj[16];
-    char describ[51];
-    //char localiz
+    char desc[51];
+    char localiz[5]; //OBXX o INXX
    
 }objetos;
 

@@ -2,10 +2,6 @@
 #define PARTIDA_H
 //ESTA CABECERA NO ESTÁ TERMINADA
 
-#include "jugadores.h"
-#include "salas.h"
-#include "conexiones.h"
-#include "puzles.h"
 
 typedef struct {
     char id_conexion[4];
