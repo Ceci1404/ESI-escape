@@ -3,12 +3,15 @@
 #include "conexiones.h"
 #include "salas.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 //Cabecera: void entrarsala(partida p, sala s, conexion co, conexion *econ, int ncon, int nsal)
 //Precondición: La función recive la estructura de partida, conexion y sala y el vector de conexiones inicializados
 //Postcondición: El jugador se movera entre salas si es posible
 void entrarsala(partida p, conexion* co, sala s, conexion *econ, int ncon, int nsal){
     int entrar;
-    strcpy(co,p.sala_actual);
     for (int i=0; i<=ncon; i++){
         if (strcmp(co[i].id_conexion,p.sala_actual)==0){   //Si el id de la conexion coincide con el id de la sala actual del jugador, se comprueba si la conexion esta activa o bloqueada))
             if (co[i].estado==true){
