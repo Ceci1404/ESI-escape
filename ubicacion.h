@@ -7,9 +7,9 @@
 #include <string.h>
 
 
-//Cabecera: void entrarsala(partida , sala )
+//Cabecera: void entrarsala(partida , sala* , sala , conexion*, int , int ) )
 //Precondición: La función recive la estructura de partida, conexion y sala
 //Postcondición: El jugador se movera entre salas si es posible
-void entrarsala(partidas , conexion );
+void entrarsala(partidas , conexion* , sala , conexion*, int , int ) );
 
 #endif
