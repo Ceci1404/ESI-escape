@@ -1,7 +1,10 @@
 /*En este modulo el jugador se mueve de ubicaciones*/
 #ifndef UBICACION_H
 #define UBICACION_H
-#include "librerias.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 
 //Cabecera: void entrarsala(partida , sala )
