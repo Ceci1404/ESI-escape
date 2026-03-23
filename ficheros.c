@@ -116,7 +116,7 @@ do{
     limpiar(cad);
     obtenercad(cad, fjug);
     strcpy(jug[njug-1].password, cad); //almaceno la contraseña del jugador
-    for(int i=0; i<jug[njug-1].inv->cant_obj-1;i++){ //almaceno todos los objetos del fichero a las estructuras
+    for(int i=0; i<jug[njug-1].cant_obj-1;i++){ //almaceno todos los objetos del fichero a las estructuras
         limpiar(cad);
         obtenercad(cad, fjug);
         strcpy(jug[njug-1].inv[i].objinv, cad);
