@@ -215,7 +215,7 @@ int total_puzles = 0;
 
 
 void carga_ficheros() {
-}
+
 mi_partida.num_puzles = 0;
     mi_partida.num_conexunlocked = 0;
     mi_partida.jug_actual.inv.cant_obj = 0;
@@ -288,7 +288,8 @@ mi_partida.num_puzles = 0;
     
     
     return mi_partida;
-}    
+}
+
   
 }
 
