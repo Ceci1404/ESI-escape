@@ -203,7 +203,16 @@ fclose(fpuz);
 //formato partida:ID_JUG- ID_SAL(ACT)- OBJ 
 //ESTE ES DIFERENTE, TENGO QUE PREGUNTAR       
 
-
+void leerficheros (sala* sal, conexion* con, jugador *jug, objetos* obj, puzle* puz){
+    leersalas(sal);
+    leerconex(con);
+    leerjug(jug);
+    leerobj(obj);
+    leerpuz(puz);
+}
+    
+    
+    
 //SUSANA ^ 
 
 void leerficheros ();

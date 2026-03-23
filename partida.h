@@ -2,7 +2,7 @@
 #define PARTIDA_H
 //ESTA CABECERA NO ESTÁ TERMINADA
 
-
+//cambiar esto a juego.h
 typedef struct {
     char id_conexion[4];
     bool activa; 
@@ -17,14 +17,14 @@ typedef struct {
 
 typedef struct {
     
-    jugador jug_actual;           
-    char sala_actual[3];          
+    int jug_actual;           
+    int sala_actual;          
     conexunlocked conex_desbloqueadas[50];  
     int num_conexunlocked;   
     puzleresuelto puzles_estado[50];      
     int num_puzles;
 
 
-}partida;
+}partidas;
 
 #endif

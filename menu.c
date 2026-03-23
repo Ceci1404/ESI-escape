@@ -8,7 +8,7 @@
 #include "salas.h"
 
 void menu_principal();
-void menu_juego(partida *p_actual);
+void menu_juego(partidas *p_actual);
 
 int main() {
     menu_principal();
@@ -18,7 +18,7 @@ int main() {
 void menu_principal() {
     int x = 0;
     //Creamos la variable que almacenará todo eljuego
-    partida mi_partida; 
+    partidas mi_partida; 
 
     do {
         printf("       --ESI SCAPE--     \n");
@@ -55,7 +55,7 @@ void menu_principal() {
 }
 
 
-void menu_juego(partida *p_actual) { // recibe el estado completo del juego
+void menu_juego(partidas *p_actual) { // recibe el estado completo del juego
     int p = 0;
 
     do {
