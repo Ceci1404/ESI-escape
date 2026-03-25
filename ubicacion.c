@@ -11,10 +11,14 @@
 //Precondición: La función recive la estructura de partida, conexion y sala y el vector de conexiones inicializados
 //Postcondición: El jugador se movera entre salas si es posible
 void entrarsala(partida p, conexion* co, sala s, conexion *econ, int ncon, int nsal){
-    int entrar;
+    bool des=false;
+    int entrar, x,z;
     for (int i=0; i<=ncon; i++){
         if (strcmp(co[i].id_conexion,p.sala_actual)==0){   //Si el id de la conexion coincide con el id de la sala actual del jugador, se comprueba si la conexion esta activa o bloqueada))
-            if (co[i].estado==true){
+            for (y=0; y<=p.num_conexunlocked || strcmp(co[i].id_conexion,p.conex_desbloqueadas[y].id_conexion)==0; y++){
+                des=true;   //Si la conexion esta desbloqueada, se marca como desbloqueada para que el jugador pueda entrar a la sala
+            }
+            if (des==true){
                 do {
                     while(x=0; x<nsal || strcmp(s[x].id_sala,co[i].id_destino)!=0){
                         x++;
