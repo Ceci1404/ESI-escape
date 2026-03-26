@@ -20,7 +20,7 @@ void soltarobjeto(jugadores j, objetos o, partida p){
     for(x=0; x<=ninv; x++){
         for(y=0; y<=j[/* indice del jugador */].cant_obj; y++){
             if(j[/* indice del jugador */].inventario[y].objinv == o[x].id_obj){
-                printf("%d %s %s %s \n", cont, o[x].id_obj, o[x].nomb_obj, o[x].desc);
+                printf("%d %s %s %s \n"x, o[x].id_obj, o[x].nomb_obj, o[x].desc);
 
             }
         }
