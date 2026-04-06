@@ -300,4 +300,4 @@ void guardar_ficheros(jugador *lista_jugadores, int total_jugadores, partidas *l
   
 }
 
-void nuevapartida(jugador *);
+void nuevapartida(jugador *){
