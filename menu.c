@@ -186,3 +186,52 @@ void menu_juego(partida *p_actual, sala *v_salas, conexion *v_conex, jugador *v_
             }
         }
     } while(p != 10); 
+
+#include <stdio.h>
+#include <string.h>
+// #include de tus cabeceras
+
+// La función devuelve un puntero a la partida específica del usuario (o NULL si falla)
+partidas* cargar_partida_existente(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas) { //funcion Mario
+    char user[11];
+    char pass[9];
+    int id_jugador_encontrado = -1;
+
+    printf("\n--- CARGAR PARTIDA ---\n");
+    printf("Introduce tu usuario: ");
+    scanf("%10s", user);
+    printf("Introduce tu contrasena: ");
+    scanf("%8s", pass);
+
+    // 1. FASE DE LOGIN: Buscamos si el usuario y contraseña existen en la RAM
+    for (int i = 0; i < total_jugadores; i++) {
+        if (strcmp(lista_jugadores[i].jugador, user) == 0 && 
+            strcmp(lista_jugadores[i].password, pass) == 0) {
+            
+            id_jugador_encontrado = i; // Guardamos su índice/ID
+            break;
+        }
+    }
+
+    // Si el bucle termina y sigue siendo -1, no se encontró
+    if (id_jugador_encontrado == -1) {
+        printf("Error: Usuario o contrasena incorrectos.\n");
+        return NULL;
+    }
+
+    // 2. FASE DE ASIGNACIÓN: Buscamos cuál es su partida
+    for (int i = 0; i < total_partidas; i++) {
+        // Comprobamos si el número de jugador de la partida coincide con nuestro usuario
+        if (lista_partidas[i].jug_actual == id_jugador_encontrado) {
+            printf("\n¡Bienvenido de nuevo, %s!\n", lista_jugadores[id_jugador_encontrado].nomb_jugador);
+            printf("Te quedaste en la sala: %d\n", lista_partidas[i].sala_actual);
+            
+            // Devolvemos la dirección de memoria EXACTA de su partida
+            return &lista_partidas[i]; 
+        }
+    }
+
+    // Si el usuario existe pero por algún motivo no se encontró una partida vinculada
+    printf("Aviso: No se ha encontrado ninguna partida guardada para este usuario.\n");
+    return NULL;
+}
