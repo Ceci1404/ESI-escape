@@ -1,6 +1,9 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+// Cabeceras de estructuras
 #include "menu.h"
 #include "partida.h"
 #include "salas.h"
@@ -8,6 +11,8 @@
 #include "jugadores.h"
 #include "objetos.h"
 #include "puzles.h"
+
+// Cabeceras de módulos de acciones
 #include "ficheros.h"
 #include "describir.h"
 #include "examinar.h"
@@ -18,28 +23,37 @@
 #include "usarobjeto.h"
 #include "resolver.h"
 
+// --- PROTOTIPOS ---
 void menu_principal();
-void menu_juego(partida *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz);
+void crear_nueva_partida(partida *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
+void cargar_partida_existente(partida *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
+void menu_juego(partida *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
 
+// --- MAIN ---
 int main() {
-    menu_principal(); // Inicia el flujo del programa
+    menu_principal(); 
     return 0;
 }
+
 
 void menu_principal() {
     int x = 0;
     partida mi_partida; 
     
-   // Variables para almacenar los datos cargados de ficheros
-    // Usamos punteros porque tus funciones de ficheros usan malloc/realloc
-    sala *v_salas = NULL;
-    conexion *v_conex = NULL;
-    jugador *v_jug = NULL;
-    objetos *v_obj = NULL;
-    puzle *v_puz = NULL;
+    
+    sala v_salas[50];
+    conexion v_conex[50];
+    jugador v_jug[10];
+    objetos v_obj[50];
+    puzle v_puz[20];
+    
+    
+    partidas v_partidas[10];
 
-    // Tamaños aproximados
+    
     int nsal = 20, nobj = 20, ncon = 20, npuz = 10;
+    int total_jugadores = 1; // Asumimos 1 para empezar
+    int total_partidas = 1;  // Asumimos 1 para empezar
 
     do {
         printf("\n       --ESI SCAPE--     \n");
@@ -52,47 +66,68 @@ void menu_principal() {
 
         if(x < 1 || x > 3){
             printf("OPCION INCORRECTA, POR FAVOR ELIJA CORRECTAMENTE.\n");
+        } else {
+            switch(x) {
+                case 1:
+                    crear_nueva_partida(&mi_partida, v_salas, v_conex, v_jug, v_obj, v_puz, nsal, nobj, ncon, npuz, v_partidas, total_jugadores, total_partidas);
+                    break;
+                case 2:
+                    cargar_partida_existente(&mi_partida, v_salas, v_conex, v_jug, v_obj, v_puz, nsal, nobj, ncon, npuz, v_partidas, total_jugadores, total_partidas);
+                    break;
+                case 3:
+                    printf("Saliendo de ESI Escape. ¡Hasta pronto!\n");
+                    break;
+            }
         }
-    } while(x < 1 || x > 3);
-
-    switch(x) {
-        case 1:
-            printf("\n[CREANDO NUEVA PARTIDA...]\n");
-            // Llamamos a la función de lectura de ficheros
-            leerficheros(v_salas, v_conex, v_jug, v_obj, v_puz);
-            
-            // Inicialización departida (sala inicial)
-            strcpy(mi_partida.sala_actual, "S1"); 
-            mi_partida.num_conexunlocked = 0;
-            mi_partida.num_puzles = 0;
-            
-          
-            menu_juego(&mi_partida, v_salas, v_conex, v_jug, v_obj, v_puz, nsal, nobj, ncon, npuz);
-            break;
-        
-        case 2:
-            printf("\n[CARGANDO PARTIDA...]\n");
-            
-            // cargamos el mundo base (salas, objetos, etc.)
-            leerficheros(v_salas, v_conex, v_jug, v_obj, v_puz);
-            
-            //  Luego  el progreso del jugador desde el .txt de guardado
-            
-            cargarficheros(&mi_partida);
-            
-            printf("Partida cargada con exito. ¡Bienvenido de nuevo!\n");
-            
-            // Entramos con datos recuperados
-            menu_juego(&mi_partida, v_salas, v_conex, v_jug, v_obj, v_puz, nsal, nobj, ncon, npuz);
-            break;
-            
-        case 3:
-            printf("Saliendo de ESI Escape...\n");
-            break;
-    }
+    } while(x != 3); 
 }
 
-void menu_juego(partida *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz) { 
+// --- NUEVA PARTIDA ---
+void crear_nueva_partida(partida *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas) {
+    printf("\n[CREANDO NUEVA PARTIDA...]\n");
+    
+   
+    leerficheros(v_salas, v_conex, v_jug, v_obj, v_puz);
+    
+   
+    printf("\n--- REGISTRO DE JUGADOR ---\n");
+    printf("Introduce un ID para tu personaje (ej. J01): ");
+    scanf("%s", p->jug_actual.id_jugador);
+    
+    printf("Introduce tu nombre: ");
+    scanf("%s", p->jug_actual.nomb_jugador);
+
+   
+    strcpy(p->sala_actual, "S1"); // Primera sala
+    p->num_conexunlocked = 0;
+    p->num_puzles = 0;
+    p->jug_actual.cant_obj = 0;   // Inventario vacío
+    
+    printf("\n¡Bienvenido a ESI Escape, %s! Despiertas en una sala oscura...\n", p->jug_actual.nomb_jugador);
+    
+    // 4. Entrar al juego
+    menu_juego(p, v_salas, v_conex, v_jug, v_obj, v_puz, nsal, nobj, ncon, npuz, v_partidas, total_jugadores, total_partidas);
+}
+
+
+void cargar_partida_existente(partida *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas) {
+    printf("\n[CARGANDO PARTIDA...]\n");
+    
+    
+    leerficheros(v_salas, v_conex, v_jug, v_obj, v_puz);
+    
+    
+    // Asumo que le pasas la partida para que la rellene con los datos del txt
+    cargarficheros(p);
+    
+    printf("\n¡Partida cargada! Reanudando desde la sala %s...\n", p->sala_actual);
+    
+    
+    menu_juego(p, v_salas, v_conex, v_jug, v_obj, v_puz, nsal, nobj, ncon, npuz, v_partidas, total_jugadores, total_partidas);
+}
+
+
+void menu_juego(partida *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas) { 
     int p = 0;
 
     do {
@@ -117,44 +152,33 @@ void menu_juego(partida *p_actual, sala *v_salas, conexion *v_conex, jugador *v_
         } else {
             switch(p) {
                 case 1:
-                    
                     describir(v_salas, *p_actual); 
                     break;
                 case 2:
                     examinar(v_salas, v_obj, *p_actual, *v_jug, nsal, nobj, 10, ncon);
                     break;
-
                 case 3: 
-                    
                     entrarsala(p_actual, v_conex, v_salas, v_conex, ncon, nsal);
                     break;
                 case 4:
-                    
                     cogerobjeto(*v_jug, *v_obj, *p_actual);
                     break;
                 case 5:
-                    
                     soltarobjeto(*v_jug, *v_obj, *p_actual);
                     break;
                 case 6:
-                    
                     mostrarinventario(*v_jug, *v_obj, *p_actual);
                     break;
                 case 7:
-                    
                     usarobjeto(*v_obj, *p_actual, *v_conex, *v_jug);
                     break;
                 case 8:
-                    
                     resolver(*v_puz, *p_actual, npuz);
                     break;
                 case 9:
-                    printf("Guardando la partida actual...\n");
-                    
-                    // Llamamos a la función en ficheros.c
-                    guardarficheros(p_actual); 
-                    
-                    printf("¡Partida guardada correctamente!\n");
+                    printf("Guardando progreso de la partida...\n");
+                    // Llamada exacta a tu función de ficheros.c original
+                    guardar_ficheros(v_jug, total_jugadores, v_partidas, total_partidas); 
                     break;
                 case 10:
                     printf("Volviendo al menu principal...\n");
