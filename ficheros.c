@@ -9,18 +9,48 @@
 
 
 //SUSANA v 
-void limpiar(char* cad){
-for (int i=0;i<151;i++){
-cad[i]='\0';}
+
+void limpiar(char* buffer) {  
+    for (int i = 0; i < 200; i++) {
+        buffer[i] = '\0';
+    }
 }
 
-void obtenercad(char* cad, FILE* f){
-    char c;
-for (int i=0 ;c !='-'|| c!="\n" ;i++){
-c=fgetc(f);
-if (c!='-' && c!="\n")
-    cad[i]=c;
-}
+char* ficherotocad(char* filepath) {
+    int lineas = 1;
+    const int maxlinea = 200;
+    char* cad;
+    char buffer[200];
+    
+    cad = (char*)malloc(lineas * maxlinea * sizeof(char));
+    if (cad == NULL) return NULL;
+    cad[0] = '\0';
+    
+    FILE* f = fopen(filepath, "r");
+    if (f == NULL) {
+        printf("No se ha podido abrir fichero\n");
+        free(cad);
+        return NULL;
+    }
+    
+    while (fgets(buffer, sizeof(buffer), f) != NULL) {
+        strcat(cad, buffer);
+        lineas++;
+        
+        char* temp = realloc(cad, lineas * maxlinea * sizeof(char));
+        if (temp == NULL) {
+            printf("Error de memoria\n");
+            free(cad);
+            fclose(f);
+            return NULL;
+        }
+        cad = temp;
+        
+        limpiar(buffer);  
+    }
+    
+    fclose(f);
+    return cad;
 }
 
  //formato salas:ID-NOMBRE-TIPO-DESCRIP 
@@ -203,13 +233,6 @@ fclose(fpuz);
 //formato partida:ID_JUG- ID_SAL(ACT)- OBJ 
 //ESTE ES DIFERENTE, TENGO QUE PREGUNTAR       
 
-void leerficheros (sala* sal, conexion* con, jugador *jug, objetos* obj, puzle* puz){
-    leersalas(sal);
-    leerconex(con);
-    leerjug(jug);
-    leerobj(obj);
-    leerpuz(puz);
-}
     
     
     
