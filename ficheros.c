@@ -322,57 +322,5 @@ void guardar_ficheros(jugador *lista_jugadores, int total_jugadores, partidas *l
 
   
 }
-    
-partidas* crear_nueva_partida( //Puesto como partidas* para que devuelva la direccion de memoria nueva de partidas tras el realloc
-    partidas *lista_partidas, 
-    int *total_partidas,       // Lo pasamos con * para poder sumar 1 y que el main se entere
-    int id_jugador_vinculado,  // El ID o número del jugador que está creando la partida
-    puzle *puzles_base,        // La lista de todos los puzles del juego (cargada por leerficheros)
-    int cant_puzles_base,
-    conexion *conex_base,      // La lista de todas las conexiones (cargada por leerficheros)
-    int cant_conex_base
-) {
-    
-    printf("--- Creando Nueva Partida ---\n");
-
-    (*total_partidas)++; //ponemos * ya que tenemos total_partidas en el main que nos sirve para guardar los datos
-
-    //realloc para reservar una direccion mas de memoria en la que introduciremos nuestros datos
-    lista_partidas = (partidas*) realloc(lista_partidas, (*total_partidas) * sizeof(partidas));
-
-    // Si realloc falla (muy raro, pero hay que comprobarlo)
-    if (lista_partidas == NULL) {
-        printf("Error fatal: No se pudo reservar memoria para la nueva partida.\n");
-        return NULL;
-    }
-
-    // 3. LOCALIZAMOS EL HUECO NUEVO (Siempre es el total - 1)
-    int hueco = (*total_partidas) - 1;
-
-    // 4. INICIALIZAMOS LOS DATOS BÁSICOS
-    lista_partidas[hueco].jug_actual = id_jugador_vinculado;
-    lista_partidas[hueco].sala_actual = 0; // Asumimos que 0 es el ID de la "Sala Inicial"
-
-    // 5. INICIALIZAMOS LOS PUZLES (Todos a false / no resueltos)
-    lista_partidas[hueco].num_puzles = cant_puzles_base;
-    for (int i = 0; i < cant_puzles_base; i++) {
-        // Copiamos el ID del puzle original a nuestra partida
-        strcpy(lista_partidas[hueco].puzles_estado[i].id_puzle, puzles_base[i].id_puzle);
-        // Lo marcamos como NO resuelto
-        lista_partidas[hueco].puzles_estado[i].resuelto = false;
-    }
-
-    // 6. INICIALIZAMOS LAS CONEXIONES (Todas cerradas/inactivas)
-    lista_partidas[hueco].num_conexunlocked = cant_conex_base;
-    for (int i = 0; i < cant_conex_base; i++) {
-        // Copiamos el ID de la conexión original a nuestra partida
-        strcpy(lista_partidas[hueco].conex_desbloqueadas[i].id_conexion, conex_base[i].id_conexion);
-        // La marcamos como NO activa (bloqueada)
-        lista_partidas[hueco].conex_desbloqueadas[i].activa = false; 
-    }
-
-    printf("- Partida creada y vinculada al jugador con ID %d.\n", id_jugador_vinculado);
-
-    // 7. DEVOLVEMOS EL PUNTERO ACTUALIZADO AL MAIN
     return lista_partidas;
 }
