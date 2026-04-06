@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Cabeceras de estructuras
 #include "menu.h"
 #include "partida.h"
 #include "salas.h"
@@ -11,6 +12,7 @@
 #include "objetos.h"
 #include "puzles.h"
 
+// Cabeceras de módulos de acciones
 #include "ficheros.h"
 #include "describir.h"
 #include "examinar.h"
@@ -39,15 +41,13 @@ void menu_principal() {
     partida mi_partida; 
     
     
-    sala v_salas[50];
-    conexion v_conex[50];
-    jugador v_jug[10];
-    objetos v_obj[50];
-    puzle v_puz[20];
+    sala *v_salas = NULL;
+    conexion *v_conex = NULL;
+    jugador *v_jug = NULL;
+    objetos *v_obj = NULL;
+    puzle *v_puz = NULL;
     
-    
-    partidas v_partidas[10];
-
+    partidas *v_partidas = NULL;
     
     int nsal = 20, nobj = 20, ncon = 20, npuz = 10;
     int total_jugadores = 1; // Asumimos 1 para empezar
@@ -69,10 +69,12 @@ void menu_principal() {
                 case 1:
                     crear_nueva_partida(&mi_partida, v_salas, v_conex, v_jug, v_obj, v_puz, nsal, nobj, ncon, npuz, v_partidas, total_jugadores, total_partidas);
                     break;
+            
                 case 2:
-                    cargar_partida_existente(&mi_partida, v_salas, v_conex, v_jug, v_obj, v_puz, nsal, nobj, ncon, npuz, v_partidas, total_jugadores, total_partidas);
-                    break;
-                case 3:
+            
+            cargar_partida_existente(&mi_partida, v_salas, v_conex, v_jug, v_obj, v_puz, nsal, nobj, ncon, npuz, v_partidas, total_jugadores, total_partidas);
+            break;
+                        case 3:
                     printf("Saliendo de ESI Escape. ¡Hasta pronto!\n");
                     break;
             }
@@ -184,4 +186,3 @@ void menu_juego(partida *p_actual, sala *v_salas, conexion *v_conex, jugador *v_
             }
         }
     } while(p != 10); 
-}
