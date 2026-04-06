@@ -217,11 +217,6 @@ void leerficheros (sala* sal, conexion* con, jugador *jug, objetos* obj, puzle* 
 
 void leerficheros ();
 
-void cargarficheros(){
-
-Puzle registro_puzles[100]; 
-int total_puzles = 0;
-
 
 void carga_ficheros() {
 
