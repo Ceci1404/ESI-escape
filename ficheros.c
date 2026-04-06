@@ -217,81 +217,84 @@ void leerficheros (sala* sal, conexion* con, jugador *jug, objetos* obj, puzle* 
 
 void leerficheros ();
 
+//se deben declarar en el main como variables que se actualicen cada vez que se modifique el número de jugadores o el número de partidas
 
-void carga_ficheros() {
-
-mi_partida.num_puzles = 0;
-    mi_partida.num_conexunlocked = 0;
-    mi_partida.jug_actual.inv.cant_obj = 0;
-
-   
-    FILE* f_partida = fopen("partida_guardada.txt", "r");
+void guardar_ficheros(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas) {
     
-    if (f_partida == NULL) {
-        printf("Error: No se encontró el fichero para cargar.\n");
-        return mi_partida; // Devolvemos la partida vacía
-    }
-
-    char etiqueta[50]; 
+    printf("--- Guardando progreso en los ficheros ---\n");
 
     
-    while (fscanf(f_partida, "%49s", etiqueta) == 1) {
-        
-        
-        if (strcmp(etiqueta, "JUGADOR") == 0) {
-           
-            fscanf(f_partida, "%s %s %s %s", 
-                   mi_partida.jug_actual.id_jugador,
-                   mi_partida.jug_actual.nomb_jugador,
-                   mi_partida.jug_actual.jugador,
-                   mi_partida.jug_actual.password);
-        }
-        
-       
-        else if (strcmp(etiqueta, "SALA") == 0) {
-            
-            fscanf(f_partida, "%2s", mi_partida.sala_actual);
-        }
-        
-       
-        else if (strcmp(etiqueta, "TOTAL_PUZLES") == 0) {
-            // Primero leemos cuántos hay
-            fscanf(f_partida, "%d", &mi_partida.num_puzles);
-            
-            
-            for (int i = 0; i < mi_partida.num_puzles; i++) {
-                int estado_resuelto;
-               
-                fscanf(f_partida, "%3s %d", 
-                       mi_partida.puzles_estado[i].id_puzle, 
-                       &estado_resuelto);
-                
-                
-                mi_partida.puzles_estado[i].resuelto = (estado_resuelto == 1);
+    FILE *f_jug = fopen("jugadores.txt", "w");
+    
+    if (f_jug != NULL) {
+        // Primero guardamos el total de jugadores
+        fprintf(f_jug, "%d\n", total_jugadores); 
+
+        for (int i = 0; i < total_jugadores; i++) {
+            // Datos principales del jugador
+            fprintf(f_jug, "%s %s %s %s %d %d\n",
+                    lista_jugadores[i].id_jugador,
+                    lista_jugadores[i].nomb_jugador, 
+                    lista_jugadores[i].jugador,
+                    lista_jugadores[i].password,
+                    lista_jugadores[i].cant_obj,
+                    lista_jugadores[i].tamainv);
+
+            // Inventario dinámico del jugador
+            for (int j = 0; j < lista_jugadores[i].cant_obj; j++) {
+                fprintf(f_jug, "%s\n", lista_jugadores[i].inv[j].objinv);
             }
         }
-    
-        else if (strcmp(etiqueta, "TOTAL_CONEXIONES") == 0) {
-            fscanf(f_partida, "%d", &mi_partida.num_conexunlocked);
-            
-            for (int i = 0; i < mi_partida.num_conexunlocked; i++) {
-                int estado_activa;
-                fscanf(f_partida, "%3s %d", 
-                       mi_partida.conex_desbloqueadas[i].id_conexion, 
-                       &estado_activa);
-                       
-                mi_partida.conex_desbloqueadas[i].activa = (estado_activa == 1);
-            }
-        }
+        fclose(f_jug);
+        printf("OK: 'jugadores.txt' guardado con %d jugadores.\n", total_jugadores);
+    } else {
+        printf("Error: No se pudo abrir jugadores.txt para guardar.\n");
     }
 
     
-    fclose(f_partida);
+    FILE *f_part = fopen("partidas.txt", "w");
     
-    printf("Infortmacion guardada\n");
-    
-    
-    return mi_partida;
+    if (f_part != NULL) {
+        // Primero guardamos el total de partidas
+        fprintf(f_part, "%d\n", total_partidas); 
+
+        for (int i = 0; i < total_partidas; i++) {
+            // Datos principales de la partida
+            fprintf(f_part, "%d %d %d %d\n",
+                    lista_partidas[i].jug_actual,
+                    lista_partidas[i].sala_actual,
+                    lista_partidas[i].num_conexunlocked,
+                    lista_partidas[i].num_puzles);
+
+            // Conexiones (con if-else normal)
+            for (int j = 0; j < lista_partidas[i].num_conexunlocked; j++) {
+                int estado_conexion;
+                if (lista_partidas[i].conex_desbloqueadas[j].activa == true) {
+                    estado_conexion = 1;
+                } else {
+                    estado_conexion = 0;
+                }
+                fprintf(f_part, "%s %d\n", lista_partidas[i].conex_desbloqueadas[j].id_conexion, estado_conexion);
+            }
+
+            // Puzles (con if-else normal)
+            for (int j = 0; j < lista_partidas[i].num_puzles; j++) {
+                int estado_puzle;
+                if (lista_partidas[i].puzles_estado[j].resuelto == true) {
+                    estado_puzle = 1;
+                } else {
+                    estado_puzle = 0;
+                }
+                fprintf(f_part, "%s %d\n", lista_partidas[i].puzles_estado[j].id_puzle, estado_puzle);
+            }
+        }
+        fclose(f_part);
+        printf("OK: 'partidas.txt' guardado con %d partidas.\n", total_partidas);
+    } else {
+        printf("Error: No se pudo abrir partidas.txt para guardar.\n");
+    }
+
+    printf("--- Proceso de guardado finalizado ---\n");
 }
 
   
