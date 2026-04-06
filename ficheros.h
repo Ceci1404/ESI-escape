@@ -17,7 +17,7 @@
     void leerficheros (sala* sal, conexion* con, jugador *jug, objetos* obj, puzle* puz);
     //SUSANA ^
     
-    void guardar_ficheros();
+    void guardar_ficheros(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas);
     void nuevapartida(jugador *);
 
 #endif
