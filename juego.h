@@ -1,28 +1,5 @@
 #ifndef JUEGO_H
 #define JUEGO_H
-typedef struct {
-    char id_conexion[4];
-    bool activa; 
-
-}conexunlocked;
-
-typedef struct {
-    char id_puzle[4];   
-    bool resuelto;
-}puzleresuelto;
 
 
-typedef struct {
-    
-    int jug_actual;           
-    int sala_actual;          
-    conexunlocked conex_desbloqueadas[50];  
-    int num_conexunlocked;   
-    puzleresuelto puzles_estado[50];      
-    int num_puzles;
-
-
-}partidas;
-
-#endif
 #endif
