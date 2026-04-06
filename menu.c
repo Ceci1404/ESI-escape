@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Cabeceras de estructuras
 #include "menu.h"
 #include "partida.h"
 #include "salas.h"
@@ -12,7 +11,6 @@
 #include "objetos.h"
 #include "puzles.h"
 
-// Cabeceras de módulos de acciones
 #include "ficheros.h"
 #include "describir.h"
 #include "examinar.h"
