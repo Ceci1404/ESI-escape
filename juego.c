@@ -24,6 +24,8 @@ return buffer;
 }
 
 
+
+
  //formato salas:ID-NOMBRE-TIPO-DESCRIP 
 sala* crearsala(char* cad){
     sala* sal;
@@ -43,71 +45,46 @@ do{
 return sal;
 }
 
+
+
     
 //formato conexiones: ID-IDOR-IDDES-ESTADO-COND
 conexion* crearconex(char* cad){
     conexion *con;
 int ncon=1;
-char cad[151];
-
+int *pcon=0;
 con= (sala* ) malloc (ncon*sizeof(conexion));
-
 do{
-    
     con= (conexion* ) realloc (con,ncon*sizeof(conexion));
-    limpiar(cad);
-    obtenercad(cad, fcon);
-    strcpy(con[ncon-1].id_conexion , cad); //almaceno el ID de CONEXIÓN
-    limpiar(cad);
-    obtenercad(cad, fcon);
-    strcpy(con[ncon-1].id_origen, cad); //almaceno el id_origen de CONEXIÓN
-    limpiar(cad);
-    obtenercad(cad, fcon); //almaceno el estado de la CONEXIÓN
-    if(cad[0]=="A") con[ncon-1].estado=0; //ACTIVO (TRUE) 
-    else if (cad[0]=="B") con[ncon-1].estado=1; //BLOQUEADO(FALSE) 
-    limpiar(cad);
-    obtenercad(cad, fcon);
-    strcpy(con[ncon-1].cond, cad); //almaceno la condición de desbloqueo (Id_obj, Id_puz o 0 si no aplica)
+    strcpy(con[ncon-1].id_conexion , obtenercad(cad, *pcon)); //almaceno el ID de CONEXIÓN
+    strcpy(con[ncon-1].id_origen, obtenercad(cad, *pcon)); //almaceno el id_origen de CONEXIÓN
+    if(strcmp(obtenercad(cad, *pcon), "ACTIVO")) con[ncon-1].estado=0; //ACTIVO (TRUE) 
+    else if (strcmp(obtenercad(cad, *pcon), "BLOQUEADO")) con[ncon-1].estado=1; //BLOQUEADO(FALSE) 
+    strcpy(con[ncon-1].cond, obtenercad(cad, *pcon)); //almaceno la condición de desbloqueo (Id_obj, Id_puz o 0 si no aplica)
     ncon++;
-}while (!feof(fcon));
-
+}while (*pcon!=-1);
 return con;
 }
+
+
 
 //formato jugadores: ID-NOMB-JUGADOR-PASSWD-IDOBJ(s)
 jugador* crearjug(char* cad){
     jugador* jug;
 int njug=1;
-char cad[151];
-
+int *pjug=0;
 jug= (jugador* ) malloc (njug*sizeof(jugador));
-
-
 do{
-    
     jug= (jugador* ) realloc (jug,njug*sizeof(jugador));
-    limpiar(cad);
-    obtenercad(cad, fjug);
-    strcpy(jug[njug-1].id_jugador , cad); //almaceno el ID de JUGADOR
-    limpiar(cad);
-    obtenercad(cad, fjug);
-    strcpy(jug[njug-1].nomb_jugador, cad); //almaceno el nombre del JUGADOR
-    limpiar(cad);
-    obtenercad(cad, fjug);
-    strcpy(jug[njug-1].jugador, cad); //almaceno el nombre de sistema del JUGADOR
-    limpiar(cad);
-    obtenercad(cad, fjug);
-    strcpy(jug[njug-1].password, cad); //almaceno la contraseña del jugador
+    strcpy(jug[njug-1].id_jugador , obtenercad(cad, *pjug)); //almaceno el ID de JUGADOR
+    strcpy(jug[njug-1].nomb_jugador, obtenercad(cad, *pjug)); //almaceno el nombre del JUGADOR
+    strcpy(jug[njug-1].jugador, obtenercad(cad, *pjug)); //almaceno el nombre de sistema del JUGADOR
+    strcpy(jug[njug-1].password, obtenercad(cad, *pjug)); //almaceno la contraseña del jugador
     for(int i=0; i<jug[njug-1].cant_obj-1;i++){ //almaceno todos los objetos del fichero a las estructuras
-        limpiar(cad);
-        obtenercad(cad, fjug);
-        strcpy(jug[njug-1].inv[i].objinv, cad);
+        strcpy(jug[njug-1].inv[i].objinv, obtenercad(cad, *pjug));
     }
     njug++;
-}while (!feof(fjug));
-
-
-
+}while (*pjug!=-1);
 return jug;
 }
 
@@ -115,30 +92,16 @@ return jug;
 objetos* crearobj(char* cad){
     objetos *obj;
 int nobj=1;
-char cad[151];
-
+int *pobj=0;
 obj= (objetos* ) malloc (nobj*sizeof(objetos));
-
-
-do{
-    
+do{   
     obj= (objetos* ) realloc (obj,nobj*sizeof(objetos));
-    limpiar(cad);
-    obtenercad(cad, fobj);
-    strcpy(obj[nobj-1].id_obj , cad); //almaceno el ID de OBJETO
-    limpiar(cad);
-    obtenercad(cad, fobj);
-    strcpy(obj[nobj-1].nomb_obj, cad); //almaceno el nombre del OBJETO
-    limpiar(cad);
-    obtenercad(cad, fobj);
-    strcpy(obj[nobj-1].desc, cad); //almaceno la descripción del OBJETO
-    limpiar(cad);
-    obtenercad(cad, fobj);
-    strcpy(obj[nobj-1].localiz, cad); //almaceno la localización del OBJETO
+    strcpy(obj[nobj-1].id_obj , obtenercad(cad, *pobj)); //almaceno el ID de OBJETO
+    strcpy(obj[nobj-1].nomb_obj, obtenercad(cad, *pobj)); //almaceno el nombre del OBJETO
+    strcpy(obj[nobj-1].desc, obtenercad(cad, *pobj)); //almaceno la descripción del OBJETO
+    strcpy(obj[nobj-1].localiz, obtenercad(cad, *pobj)); //almaceno la localización del OBJETO
     nobj++;
-}while (!feof(fobj));
-
-
+}while (*pobj!=-1);
 return obj;
 }
 
@@ -147,34 +110,19 @@ return obj;
 puzle* crearpuz(char* cad){
     puzle* puz;
 int npuz=1;
-char cad[151];
-
+int *ppuz=0;
 puz= (puzle* ) malloc (npuz*sizeof(puzle));
 do{
-    
     puz= (puzle* ) realloc (puz,npuz*sizeof(puzle));
-    limpiar(cad);
-    obtenercad(cad, fpuz);
-    strcpy(puz[npuz-1].id_puzle , cad); //almaceno el ID de PUZLE
-    limpiar(cad);
-    obtenercad(cad, fpuz);
-    strcpy(puz[npuz-1].nomb_puz, cad); //almaceno el nombre del PUZLE
-    limpiar(cad);
-    obtenercad(cad, fpuz);
-    strcpy(puz[npuz-1].id_sala, cad); //almaceno la sala del PUZLE
-    limpiar(cad);
-    obtenercad(cad, fpuz);
-    if(cad[0]=='C') puz[npuz-1].tipo=0; //CODIGO
-    if(cad[0]=='P') puz[npuz-1].tipo=1; //PALABRA
-    limpiar(cad);
-    obtenercad(cad, fpuz);
-    strcpy(puz[npuz-1].desc, cad); //almaceno la descripción del PUZLE
-    limpiar(cad);
-    obtenercad(cad, fpuz);
-    strcpy(puz[npuz-1].sol, cad); //almaceno la solución del PUZLE
+    strcpy(puz[npuz-1].id_puzle , obtenercad(cad, *ppuz)); //almaceno el ID de PUZLE
+    strcpy(puz[npuz-1].nomb_puz, obtenercad(cad, *ppuz)); //almaceno el nombre del PUZLE
+    strcpy(puz[npuz-1].id_sala, obtenercad(cad, *ppuz)); //almaceno la sala del PUZLE
+    if(strcmp(obtenercad(cad, *ppuz), "CODIGO")) puz[npuz-1].tipo=0; //CODIGO
+    else if (strcmp(obtenercad(cad, *ppuz),"PALABRA")) puz[npuz-1].tipo=1; //PALABRA
+    strcpy(puz[npuz-1].desc, obtenercad(cad, *ppuz)); //almaceno la descripción del PUZLE
+    strcpy(puz[npuz-1].sol, obtenercad(cad, *ppuz)); //almaceno la solución del PUZLE
     npuz++;
-}while (!feof(fpuz));
-
+}while (*ppuz!=-1);
 return puz;
 }
 
