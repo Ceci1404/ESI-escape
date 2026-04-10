@@ -17,9 +17,9 @@ void usarobjeto(objetos *o,partidas p, conexion *c, jugador *j, int *jug){
     for (int i=0; i<=sizeof(c); i++){
         if (strcmp(c[i].id_conexion,p.sala_actual)==0){                             //Comprobamos que la conexión de la sala actual
             for(y=0; y<=j[*jug].cant_obj; y++){
-                if (strcmp(c[i].cond,j[*jug].inventario[y].objinv)==0){             //Buscamos en el inventario si hay un objeto que pueda abrir la conexion
+                if (strcmp(c[i].cond,j[*jug].inv[y].objinv)==0){             //Buscamos en el inventario si hay un objeto que pueda abrir la conexion
                     for(z=0;z<=sizeof(o); z++){
-                        if (strcmp(o[z].id_obj,j[*jug].inventario[y].objinv)==0)    //Tomamos el objeto del vector de objetos que es igual al inventario
+                        if (strcmp(o[z].id_obj,j[*jug].inv[y].objinv)==0);    //Tomamos el objeto del vector de objetos que es igual al inventario
                     }
                     do{
                         printf("Puedes usar el objeto %s en la sala\n ¿quieres usarlo? Si:1 No:0 \n", o[z].nomb_obj);
