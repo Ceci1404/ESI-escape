@@ -2,6 +2,7 @@
 #define PARTIDA_H
 //ESTA CABECERA NO ESTÁ TERMINADA
 
+typedef enum {TRUE, FALSE} bool;
 //cambiar esto a juego.h
 typedef struct {
     char id_conexion[4];

@@ -10,11 +10,11 @@
 //Cabecera: void resolver(puzles puz, partida p, int npuz)
 //Precondición: La función recive la estructura de puzles y partida inicializada
 //Postcondición: El jugador podra resolver puzles
-void resolver(puzles puz, partida p, int npuz){
+void resolver(puzle *puz, partidas p, int npuz){
     char c[5];
     int x,y,resolver;
     for(x=0; x<=npuz; x++){
-        if(strcmp(p.sala_actual, puz[x].localiz)==0){
+        if(strcmp(p.sala_actual, puz[x].id_sala)==0){
             printf("El puzle es de tipo %s\nDescripcion: %s\n", puz[x].tipo, puz[x].desc);
             for(y=0; y<p.num_puzles; y++){
                 if(p.puzles_estado[y].resuelto==true){

@@ -10,6 +10,6 @@
 //Cabecera: void entrarsala(partida , sala* , sala , conexion*, int , int ) )
 //Precondición: La función recive la estructura de partida, conexion y sala
 //Postcondición: El jugador se movera entre salas si es posible
-void entrarsala(partidas , conexion* , sala , conexion*, int , int ) );
+void entrarsala(partidas p, conexion* co, sala s, conexion *econ, int ncon, int nsal);
 
 #endif

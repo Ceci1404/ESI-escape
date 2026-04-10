@@ -10,9 +10,9 @@
 //Cabecera: void entrarsala(partida p, sala s, conexion co, conexion *econ, int ncon, int nsal)
 //Precondición: La función recive la estructura de partida, conexion y sala y el vector de conexiones inicializados
 //Postcondición: El jugador se movera entre salas si es posible
-void entrarsala(partida p, conexion* co, sala s, conexion *econ, int ncon, int nsal){
+void entrarsala(partidas p, conexion* co, sala s, conexion *econ, int ncon, int nsal){
     bool des=false;
-    int entrar, x,z;
+    int entrar, x,y,z;
     for (int i=0; i<=ncon; i++){
         if (strcmp(co[i].id_conexion,p.sala_actual)==0){   //Si el id de la conexion coincide con el id de la sala actual del jugador, se comprueba si la conexion esta activa o bloqueada))
             for (y=0; y<=p.num_conexunlocked || strcmp(co[i].id_conexion,p.conex_desbloqueadas[y].id_conexion)==0; y++){
@@ -20,7 +20,7 @@ void entrarsala(partida p, conexion* co, sala s, conexion *econ, int ncon, int n
             }
             if (des==true){
                 do {
-                    while(x=0; x<nsal || strcmp(s[x].id_sala,co[i].id_destino)!=0){
+                    while(x=0; x<nsal || strcmp(s[x].id_sala,co[i].id_destino)!=0){ //ESTO HAY QUE CAMBIARLO
                         x++;
                     }
                     printf("Puedes entrar a la sala: %s, ¿quieres entrar? Si:1 No:0 \n", s[x].nomb_sala);

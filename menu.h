@@ -1,11 +1,6 @@
 #ifndef MENU_H
 #define MENU_H
-#include "partida.h"
-#include "salas.h"
-#include "conexiones.h"
-#include "jugadores.h"
-#include "objetos.h"
-#include "puzles.h"
+
 
 // --- PROTOTIPOS DE LAS FUNCIONES DEL MENÚ ---
 

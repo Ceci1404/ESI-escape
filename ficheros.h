@@ -7,17 +7,11 @@
 //LECTURA Y ESCRITURA DE FICHEROS
     //SUSANA v
     //cambiar estas funciones a juego.h
-    void obtenercad (char*, FILE* );
+    char* ficherotocad(char* filepath);
     void limpiar(char* cad);
-    void leersalas(sala* sal);
-    void leerconex(conexion* con);
-    void leerjug(jugador* jug);
-    void leerobj(objetos* obj);
-    void leerpuz(puzle* puz);
-    void leerficheros (sala* sal, conexion* con, jugador *jug, objetos* obj, puzle* puz);
     //SUSANA ^
     
-    void guardar_ficheros(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas);
+    void cargarficheros();
     void nuevapartida(jugador *);
 
 #endif
