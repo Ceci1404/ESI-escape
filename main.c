@@ -12,11 +12,5 @@
 
 
 int main(){
-int *numpuz;
-char* cad;
-
-ficherotocad("puzles.txt", cad);
-puzle* p= crearpuz(cad, &numpuz);
-
 
 }
