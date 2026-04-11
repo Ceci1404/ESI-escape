@@ -22,11 +22,7 @@ void crear_nueva_partida(partidas *p, sala *v_salas, conexion *v_conex, jugador 
 void cargar_partida_existente(partidas *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
 void menu_juego(partidas *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
 
-// --- MAIN ---
-int main() {
-    menu_principal(); 
-    return 0;
-}
+
 
 
 void menu_principal() {
