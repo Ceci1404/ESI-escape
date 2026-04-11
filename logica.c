@@ -342,7 +342,7 @@ void nuevapartida(jugador *j, partida *p, int *jug){
     int tamainv=10;
     malloc(j[*njug].inventario, tamainv*sizeof(inventario));
 
-
+    j[*njug].inv= (inventario* ) realloc (j[*njug].inv, tamainv*sizeof(inventario) )
     /*Inicialización de la estructura de la partida*/
     //Jugador actual
     strcpy(j[*njug].id_jugador, p.id_jugador);

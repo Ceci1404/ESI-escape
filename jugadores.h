@@ -17,7 +17,7 @@ typedef struct {
     char password[9];
     int cant_obj;
     int tamainv;
-    inventario *inv; //El inventario tendrá un tamaño max de tamainv
+    inventario inv[10]; //El inventario tendrá un tamaño de tamainv, inicializado en 10 (minimo)
 }jugador;
 
 
