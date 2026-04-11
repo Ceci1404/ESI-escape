@@ -50,9 +50,13 @@ void entrarsala(partidas p, conexion* co, sala *s, conexion *econ, int *, int *)
 void usarobjeto(objetos *, partidas , conexion *, jugador* , int* , int* );
 
 
-//Cabecera: void verificarusuario()
+//Cabecera: void verificarusuario(jugador, int *)
 //Precondición: La estructura de los jugadores debe estar inicializado
 //Postcondición: Verifica si el usuario existe o no, y si la contraseña es correcta o no
 void verificarusuario(jugador, int *);
 
+//Cabecera: void nuevapartida(jugador *, partida)
+//Precondición:  Las estructuras jugadorespartida deben estar inicializadas
+//Postcondición: Se añadira un nuevo jugador en el vector de jugadores y se inicializara la partida con los datos del nuevo jugador
+void nuevapartida(jugador *, partida);
 #endif
