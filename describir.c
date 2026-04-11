@@ -15,13 +15,13 @@
 void describir( sala *s, partidas p){
     int x, volver;
     for(x=0; x<=sizeof(s); x++){
-        if(strcmp(p.sala_actual, s[x].id_sala)==0){
+        if(strcmp(p.sala_actual, s[x].id_sala)==0){             //Si la sala actual es igual a la sala del vector se describe
             printf("Estas en la sala %s, %s \n", s[x].id_sala, s[x].descrip);
             if(s[x].tipo==SALIDA){
                 printf("Felicidades, has encontrado la salida\n");
                 
                 do{
-                    printf("Quieres volver al menu principal? Si:1 No:0 \n");
+                    printf("Quieres volver al menu principal? Si:1 No:0 \n");       //Da la opción es afirmativa se llamara al menu principal
                     if (volver==1){
                         menu(/*Rellenare cuando este el menu terminado */);
                     } 

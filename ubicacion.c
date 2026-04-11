@@ -7,10 +7,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-//Cabecera: void entrarsala(partida p, sala s, conexion co, conexion *econ, int ncon, int nsal)
+//Cabecera: void entrarsala(partida p, sala s, conexion co, conexion *econ, int *numcon, int *numsal)
 //Precondición: La función recive la estructura de partida, conexion y sala y el vector de conexiones inicializados
 //Postcondición: El jugador se movera entre salas si es posible
-void entrarsala(partidas p, conexion* co, sala s, conexion *econ, int ncon, int nsal){
+void entrarsala(partidas p, conexion* co, sala s, conexion *econ, int *numcon, int *numsal){
     bool des=false;
     int entrar, x,y,z;
     for (int i=0; i<=ncon; i++){

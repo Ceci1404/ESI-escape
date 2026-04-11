@@ -10,12 +10,12 @@
 //Cabecera: void cogerobjeto(jugadores j, objetos o, partida p)
 //Precondición: La funcion recive la estructura de jugadores, objetos y partida
 //Postcondición: El jugador podra coger objetos que esten en la sala actual y se añadiran en el inventario
-void cogerobjeto(jugador *j, objetos *o, partidas p,/*inventario *einv, int ninv, int nobj */ ){
+void cogerobjeto(jugador *j, objetos *o, partidas p,/*inventario *einv, int ninv, int nobj */ , int *jug){
     int coger, i=0;
     int x;
-    for(x=0; x<=j.[/**/].cant_obj; x++) {
+    for(x=0; x<=j.[jug].cant_obj; x++) {
         if (strcmp(p.sala_actual,o[x].localiz)==0){
-            if (j/*[tengo que pensar como verificar que jug es]*/.tamainv>j.[/**/].cant_obj){     //Si el inventario del jugador no esta lleno, se le pregunta si quiere coger el objeto
+            if (j[*jug].tamainv>j.[*jug].cant_obj){     //Si el inventario del jugador no esta lleno, se le pregunta si quiere coger el objeto
                 do{
                     printf("Puedes coger el objeto %s, ¿quieres cogerlo? Si:1 No:0 \n", o[p.sala_actual].nomb_obj);
                     scanf("%d", &coger);
@@ -23,8 +23,8 @@ void cogerobjeto(jugador *j, objetos *o, partidas p,/*inventario *einv, int ninv
                 if(coger==1){
                     /* ninv++;
                     realloc(einv, ninv*sizeof(inventario));
-                    j[/*tengo que pensar como verificar que jug es].cant_obj++;
-                    j[/*tengo que pensar como verificar que jug es].inventario[j[x].cant_obj].objinv=o[x].id_obj;
+                    j[jug].cant_obj++;
+                    j[jug].inventario[j[x].cant_obj].objinv=o[x].id_obj;
 
                     */
                 }

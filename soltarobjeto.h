@@ -1,9 +1,8 @@
 #ifndef SOLTAROBJETO_H
 #define SOLTAROBJETO_H
-
-//Cabecera: void soltarobjeto(jugadores, objetos, partida)
-//Precondición: La funcion recive la estructura de jugadores, objetos y partida inicializada
+//Cabecera: void soltarobjeto(puzle *, partidas , int , jugador *, objetos *, int *)
+//Precondición: La funcion recive la estructura de puzle, jugadores, objetos y partida inicializada
 //Postcondición: El jugador soltara un objeto del inventario en la sala actual
-void resolver(puzle *puz, partidas p, int npuz);
+void soltarobjeto(puzle *, partidas , int *, jugador *, objetos *, int *);
 
 #endif
