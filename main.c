@@ -9,10 +9,9 @@
 #include "ficheros.h"
 #include "menu.h"
 
-void leerficheros();
+
 
 int main(){
 
-leerficheros();
 
 }
