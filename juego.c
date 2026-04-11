@@ -167,7 +167,123 @@ return puz;
 }
 
 //formato partida:ID_JUG- ID_SAL(ACT)- OBJ 
-//ESTE ES DIFERENTE, TENGO QUE PREGUNTAR       
+//ESTE ES DIFERENTE, TENGO QUE PREGUNTAR 
+
+    char* cadtipopar (char* cad, int *pcad, char* buffer){
+
+            int j = 0;
+             buffer[0] = '\0';
+    // FINAL
+    if (cad[*pcad] == '\0') {
+        *pcad = -1;
+        buffer[0] = '\0';
+        return buffer;
+    }
+    // HASTA DOS PUNTOS
+    while (cad[*pcad] != '\0' && cad[*pcad] != ':' && cad[*pcad] != '\n') {
+        buffer[j++] = cad[*pcad];
+        (*pcad)++;
+    }
+        // AVANZAR DOS PUNTOS (Y ESPACIO?)
+    if (cad[*pcad] == ':') {
+    (*pcad)++;
+    if (cad[*pcad] == ' ') (*pcad)++;
+}
+else if (cad[*pcad] == '\n') { //MANEJO DE SALTO DE LINEA
+    (*pcad)++;
+}
+    return buffer;
+
+    }
+
+    char* caddatpar (char *cad, int *pcad, char* buffer){
+        int j = 0;
+         buffer[0] = '\0';
+    // FINAL
+    if (cad[*pcad] == '\0') {
+        *pcad = -1;
+        buffer[0] = '\0';
+        return buffer;
+    }
+    // HASTA SEPARADOR
+    while (cad[*pcad] != '\0' && cad[*pcad] != '-' && cad[*pcad] != '\n') {
+        buffer[j++] = cad[*pcad];
+        (*pcad)++;
+    }
+    buffer[j] = '\0';   
+    // AVANZAR SEPARADOR
+    if (cad[*pcad] == '-' || cad[*pcad] == '\n') {
+        (*pcad)++;
+    }   
+    // FIN DE LINEA
+    while (cad[*pcad] == ' ' || cad[*pcad] == '\t') {
+        (*pcad)++;
+    }  
+    return buffer;
+
+    }
+
+//ALMACENO TODAS LAS PARTIDAS
+partidas* crearpar(char* cad, int* numpar){
+    partidas* par=NULL;
+    int npar=0; //Número de partidas
+    int ppar=0;
+    char buffer[151];
+     /// v ESTO LO HAGO ANTES DEL BUCLE PARA QUE LUEGO AL FINAL NO SE REPITA
+    cadtipopar(cad,&ppar,buffer); //"JUGADOR: "
+    do{ 
+        int  nobj=0, ncond=0, npuz=0; //número de objetos de partida, número de conexiones desbloqueadas y número de puzles
+        par= (partidas* ) realloc (par,(npar+1)*sizeof(partidas));
+        //--------------------
+        caddatpar(cad,&ppar, buffer);
+        strcpy(par[npar].jug_actual, buffer);
+        //--------------------
+        cadtipopar(cad,&ppar,buffer); //"SALA: "
+        caddatpar(cad,&ppar, buffer);
+        strcpy(par[npar].sala_actual, buffer);
+        //--------------------
+        cadtipopar(cad,&ppar,buffer); //"OBJETO: "
+        while (strcmp(buffer,"OBJETO")==0){
+            caddatpar(cad,&ppar, buffer);
+            strcpy(par[npar].objpar[nobj].id_obj, buffer);
+            caddatpar(cad,&ppar, buffer);
+            strcpy(par[npar].objpar[nobj].localiz, buffer);
+            nobj++;
+            cadtipopar(cad,&ppar,buffer); //"OBJETO: " / "CONEXIÓN: "
+        }
+        par[npar].num_objetospar=nobj;
+        //--------------------
+
+         while (strcmp(buffer,"CONEXIÓN")==0){
+            caddatpar(cad,&ppar, buffer);
+            strcpy(par[npar].conex_desbloqueadas[ncond].id_conexion, buffer);
+            caddatpar(cad,&ppar, buffer);
+            if (!strcmp(buffer,"Activa")) par[npar].conex_desbloqueadas[ncond].activa=1;
+            else if (!strcmp(buffer,"Bloqueado")) par[npar].conex_desbloqueadas[ncond].activa=0;
+            ncond++;
+            cadtipopar(cad,&ppar,buffer); //"CONEXIÓN: " / "PUZLE: "
+        }
+        par[npar].num_conexunlocked=ncond;
+        
+        //--------------------
+
+            while (strcmp(buffer,"PUZLE")==0){
+            caddatpar(cad,&ppar, buffer);
+            strcpy(par[npar].puzles_estado[npuz].id_puzle, buffer);
+            caddatpar(cad,&ppar, buffer);
+            if (!strcmp(buffer,"Pendiente")) par[npar].puzles_estado[npuz].resuelto=0;
+            else if (!strcmp(buffer,"Resuelto")) par[npar].puzles_estado[npuz].resuelto=1;
+            npuz++;
+            cadtipopar(cad,&ppar,buffer); //"PUZLE: "/ "JUGADOR: " / "\0"
+        }
+        par[npar].num_puzles= npuz;
+        npar++; 
+    
+    }while (ppar != -1);
+   
+    *numpar=npar;
+return par;
+}
 
     
     

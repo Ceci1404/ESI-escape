@@ -8,5 +8,7 @@ conexion* crearconex(char* cad, int *numcon);
 jugador* crearjug(char* cad, int *numjug);
 objetos* crearobj(char* cad, int* numobj);
 puzle* crearpuz(char* cad, int* numpuz);
+char* cadtipopar (char* cad, int *ppar, char* buffer);
+partidas* crearpar(char* cad, int* numpar);
 
 #endif
