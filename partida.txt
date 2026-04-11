@@ -1,0 +1,6 @@
+JUGADOR: 01
+SALA: 03
+OBJETO: OB01-Inventario
+OBJETO: OB02-03
+CONEXIÓN: 04-Activo
+PUZLE: P01-Resuelto

@@ -1,1 +1,10 @@
-
+OB01-Tarjeta Laboratorio-Tarjeta con banda magnética de acceso al laboratorio-03
+OB02-Destornillador-Destornillador que sirve para abrir una caja-05
+OB03-Nota arrugada-Papel con números para un puzle-02
+OB04-Llave-Abre la cerradura de la sal-06
+OB05-Libro-Libro con codigos-15
+OB06-Foto-Frase en el reverso de la foto-18
+OB07-Tijeras-Para cortar la cuerda que cierra la sala-04
+OB08-Piezas de madera-Puzle hecho de piezas de madera-06
+OB09-Luz ultravioleta- Permite ver el mensaje oculto-02
+OB10-Candado numérico-Candado que se abre con una combinación-05
