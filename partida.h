@@ -1,6 +1,6 @@
 #ifndef PARTIDA_H
 #define PARTIDA_H
-//ESTA CABECERA NO ESTÁ TERMINADA
+
 
 typedef enum {FALSE,TRUE } bool;
 
