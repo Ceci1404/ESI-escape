@@ -55,8 +55,8 @@ void usarobjeto(objetos *, partidas , conexion *, jugador* , int* , int* );
 //Postcondición: Verifica si el usuario existe o no, y si la contraseña es correcta o no
 void verificarusuario(jugador, int *);
 
-//Cabecera: void nuevapartida(jugador *, partida)
+//Cabecera: void nuevapartida(jugador *, partida, int *)
 //Precondición:  Las estructuras jugadorespartida deben estar inicializadas
 //Postcondición: Se añadira un nuevo jugador en el vector de jugadores y se inicializara la partida con los datos del nuevo jugador
-void nuevapartida(jugador *, partida);
+void nuevapartida(jugador *, partida, int *);
 #endif
