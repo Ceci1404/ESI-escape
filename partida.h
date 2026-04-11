@@ -3,6 +3,7 @@
 //ESTA CABECERA NO ESTÁ TERMINADA
 
 typedef enum {FALSE,TRUE } bool;
+
 //cambiar esto a juego.h
 typedef struct {
     char id_conexion[4];

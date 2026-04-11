@@ -14,20 +14,13 @@
 
 // Cabeceras de módulos de acciones
 #include "ficheros.h"
-#include "describir.h"
-#include "examinar.h"
-#include "ubicacion.h"
-#include "cogerobjeto.h"
-#include "soltarobjeto.h"
-#include "inventario.h"
-#include "usarobjeto.h"
-#include "resolver.h"
+#include "logica.h"
 
 // --- PROTOTIPOS ---
 void menu_principal();
-void crear_nueva_partida(partida *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
-void cargar_partida_existente(partida *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
-void menu_juego(partida *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
+void crear_nueva_partida(partidas *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
+void cargar_partida_existente(partidas *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
+void menu_juego(partidas *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
 
 // --- MAIN ---
 int main() {
@@ -38,7 +31,7 @@ int main() {
 
 void menu_principal() {
     int x = 0;
-    partida mi_partida; 
+    partidas mi_partida; 
     
     
     sala *v_salas = NULL;
@@ -83,7 +76,7 @@ void menu_principal() {
 }
 
 // --- NUEVA PARTIDA ---
-void crear_nueva_partida(partida *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas) {
+void crear_nueva_partida(partidas *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas) {
     printf("\n[CREANDO NUEVA PARTIDA...]\n");
     
    
@@ -110,7 +103,7 @@ void crear_nueva_partida(partida *p, sala *v_salas, conexion *v_conex, jugador *
 }
 
 
-void cargar_partida_existente(partida *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas) {
+void cargar_partida_existente(partidas *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas) {
     printf("\n[CARGANDO PARTIDA...]\n");
     
     
@@ -127,7 +120,7 @@ void cargar_partida_existente(partida *p, sala *v_salas, conexion *v_conex, juga
 }
 
 
-void menu_juego(partida *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas) { 
+void menu_juego(partidas *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas) { 
     int p = 0;
 
     do {

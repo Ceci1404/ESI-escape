@@ -18,10 +18,9 @@ void limpiar(char* buffer) {
     }
 }
 
-char* ficherotocad(char* filepath) {
+char* ficherotocad(char* filepath, char* cad) {
     int lineas = 1;
     const int maxlinea = 200;
-    char* cad;
     char buffer[200];
     
     cad = (char*)malloc(lineas * maxlinea * sizeof(char));

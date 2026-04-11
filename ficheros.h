@@ -7,7 +7,7 @@
 //LECTURA Y ESCRITURA DE FICHEROS
     //SUSANA v
     //cambiar estas funciones a juego.h
-    char* ficherotocad(char* filepath);
+    char* ficherotocad(char* filepath,char* cad);
     void limpiar(char* cad);
     //SUSANA ^
     

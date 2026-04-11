@@ -57,8 +57,8 @@ sala* crearsala(char* cad, int *numsal) {
         obtenercad(cad, &pcad, buffer);
         strcpy(sal[nsal].descrip, buffer); //DESCRIPCIÓN
         nsal++;
-    } while (pcad != -1 && cad[pcad] != '\0'); //DIRÍA QUE CON UNA DE LAS DOS YA SIRVE
-    *numsal = nsal;
+    } while (pcad != -1); 
+    *numsal = nsal+1;
     return sal;
 }
 
@@ -82,8 +82,8 @@ do{
     obtenercad(cad, &pcon, buffer);
     strcpy(con[ncon-1].cond, buffer); //almaceno la condición de desbloqueo (Id_obj, Id_puz o 0 si no aplica)
     ncon++;
-}while (pcon != -1 && cad[pcon] != '\0');
-*numcon= ncon;
+}while (pcon != -1);
+*numcon= ncon+1;
 return con;
 }
 
@@ -110,8 +110,8 @@ do{
         strcpy(jug[njug-1].inv[i].objinv, buffer);
     }
     njug++;
-}while (pjug != -1 && cad[pjug] != '\0');
-*numjug=njug;
+}while (pjug != -1);
+*numjug=njug+1;
 return jug;
 }
 
@@ -133,8 +133,8 @@ do{
     obtenercad(cad, &pobj, buffer);
     strcpy(obj[nobj].localiz, buffer); //almaceno la localización del OBJETO
     nobj++;
-}while (pobj != -1 && cad[pobj] != '\0');
-*numobj=nobj;
+}while (pobj != -1);
+*numobj=nobj+1;
 return obj;
 }
 
@@ -161,8 +161,8 @@ do{
     obtenercad(cad, &ppuz, buffer);
     strcpy(puz[npuz].sol, buffer); //almaceno la solución del PUZLE
     npuz++;
-}while (ppuz != -1 && cad[ppuz] != '\0');
-*numpuz= npuz;
+}while (ppuz != -1);
+*numpuz= npuz+1;
 return puz;
 }
 
