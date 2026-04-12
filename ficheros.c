@@ -84,47 +84,50 @@ void guardar_datos(jugador *lista_jugadores, int total_jugadores, partidas *p_ac
             fprintf(f_jug, "\n");
         }
         fclose(f_jug);
-        printf(" -> Base de datos de jugadores actualizada.\n");
     }
 
-    // =========================================================================
-    // FASE 2: GUARDAR PARTIDA ACTIVA (Formato estricto de etiquetas)
-    // =========================================================================
-    // Solo guardamos si realmente hay una partida activa cargada en RAM
+   //Guardar datos partida
     if (p_activa != NULL) {
         FILE *f_part = fopen("Partida.txt", "w");
         if (f_part == NULL) {
-            printf("[ERROR] No se pudo acceder a Partida.txt para escritura.\n");
+            printf("[ERROR] No se pudo acceder a Partida.txt \n");
         } else {
-            // Imprimimos etiquetas base
+            
             fprintf(f_part, "JUGADOR: %02d\n", p_activa->jug_actual);
             fprintf(f_part, "SALA: %02d\n", p_activa->sala_actual);
 
-            // OBJETOS: Imprimimos leyendo desde el array objpar[10]
+            
             for (int i = 0; i < p_activa->num_objetospar; i++) {
                 fprintf(f_part, "OBJETO: %s-%s\n", p_activa->objpar[i].id_obj, p_activa->objpar[i].localiz);
             }
 
             // CONEXIONES: Uso de operador ternario (? :) para máxima eficiencia sin bloques if/else
             for (int i = 0; i < p_activa->num_conexunlocked; i++) {
+                char *estado;
+                        if (p_activa->conex_desbloqueadas[i].activa == TRUE) 
+                             estado="Activa";
+                        else
+                           estado="Bloqueada";
                 fprintf(f_part, "CONEXIÓN: %s-%s\n", 
-                        p_activa->conex_desbloqueadas[i].id_conexion, 
-                        (p_activa->conex_desbloqueadas[i].activa == TRUE) ? "Activa" : "Bloqueada");
+                        p_activa->conex_desbloqueadas[i].id_conexion,estado)
             }
 
-            // PUZLES: Uso de operador ternario
+           
             for (int i = 0; i < p_activa->num_puzles; i++) {
-                fprintf(f_part, "PUZLE: %s-%s\n", 
-                        p_activa->puzles_estado[i].id_puzle, 
-                        (p_activa->puzles_estado[i].resuelto == TRUE) ? "Resuelto" : "Pendiente");
+                char *estado;
+                 if (p_activa->puzles_estado[i].resuelto == TRUE) 
+                     estado="Resuelto";
+                else
+                     estado="Pendiente";
+                fprintf(f_part, "PUZLE: %s-%s\n",p_activa->puzles_estado[i].id_puzle,estado)
             }
 
             fclose(f_part);
             printf(" -> Estado de la partida actual guardado con exito.\n");
         }
     } else {
-         printf(" -> [AVISO] No hay ninguna partida en curso para guardar.\n");
+         printf(" No hay ninguna partida en curso para guardar.\n");
     }
 
-    printf("[SISTEMA] Guardado finalizado.\n\n");
+    printf("Guardado finalizado.\n\n");
 }
