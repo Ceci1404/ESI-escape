@@ -11,6 +11,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+//Cabecera: char* obtenercad(char* cad, int* pcad, char* buffer)
+//Precondición: cad no es NULL, pcad apunta a un índice válido dentro de cad
+//Postcondición: buffer contiene el siguiente token (hasta '-' o '\n'), pcad avanza o se pone a -1 si es fin
 char* obtenercad(char* cad, int* pcad, char* buffer) {
     int j = 0;
     // FINAL
@@ -37,6 +41,10 @@ char* obtenercad(char* cad, int* pcad, char* buffer) {
 }
 
 
+//Cabecera: sala* crearsala(char* cad, int *numsal)
+//Precondición: cad tiene formato "ID-NOMBRE-TIPO-DESCRIP", numsal no es NULL
+//Postcondición: Devuelve array dinámico de salas, *numsal contiene el número de salas creadas
+
 //formato salas:ID-NOMBRE-TIPO-DESCRIP 
 sala* crearsala(char* cad, int *numsal) {
     sala* sal = NULL;
@@ -62,6 +70,9 @@ sala* crearsala(char* cad, int *numsal) {
     return sal;
 }
 
+//Cabecera: conexion* crearconex(char* cad, int *numcon)
+//Precondición: cad tiene formato "ID-IDOR-IDDES-ESTADO-COND", numcon no es NULL
+//Postcondición: Devuelve array dinámico de conexiones, *numcon contiene el número de conexiones creadas
     
 //formato conexiones: ID-IDOR-IDDES-ESTADO-COND
 conexion* crearconex(char* cad, int *numcon){
@@ -87,7 +98,9 @@ do{
 return con;
 }
 
-
+//Cabecera: jugador* crearjug(char* cad, int *numjug)
+//Precondición: cad tiene formato "ID-NOMB-JUGADOR-PASSWD-IDOBJ(s)", numjug no es NULL
+//Postcondición: Devuelve array dinámico de jugadores, *numjug contiene el número de jugadores creados
 
 //formato jugadores: ID-NOMB-JUGADOR-PASSWD-IDOBJ(s)
 jugador* crearjug(char* cad, int *numjug){
@@ -115,6 +128,10 @@ do{
 return jug;
 }
 
+//Cabecera: objetos* crearobj(char* cad, int* numobj)
+//Precondición: cad tiene formato "ID-NOMB-DESC-LOCAL", numobj no es NULL
+//Postcondición: Devuelve array dinámico de objetos, *numobj contiene el número de objetos creados
+
 //formato objetos: ID-NOMB-DESC-LOCAL
 objetos* crearobj(char* cad, int* numobj){
     objetos *obj=NULL;
@@ -137,6 +154,10 @@ do{
 *numobj=nobj+1;
 return obj;
 }
+
+//Cabecera: puzle* crearpuz(char* cad, int* numpuz)
+//Precondición: cad tiene formato "ID-NOMB-IDSALA-TIPO-DESC-SOL", numpuz no es NULL
+//Postcondición: Devuelve array dinámico de puzles, *numpuz contiene el número de puzles creados
 
 
 //formato puzles ID-NOMB-IDSALA-TIPO-DESC-SOL
@@ -166,8 +187,12 @@ do{
 return puz;
 }
 
+//Cabecera: char* cadtipopar(char* cad, int *pcad, char* buffer)
+//Precondición: cad no es NULL, pcad apunta a un índice válido dentro de cad
+//Postcondición: buffer contiene token hasta ':' (o '\n'), pcad avanza o se pone a -1 si es fin
+
+
 //formato partida:ID_JUG- ID_SAL(ACT)- OBJ 
-//ESTE ES DIFERENTE, TENGO QUE PREGUNTAR 
 
     char* cadtipopar (char* cad, int *pcad, char* buffer){
 
@@ -196,6 +221,11 @@ else if (cad[*pcad] == '\n') { //MANEJO DE SALTO DE LINEA
 
     }
 
+//Cabecera: char* caddatpar(char* cad, int *pcad, char* buffer)
+//Precondición: cad no es NULL, pcad apunta a un índice válido dentro de cad
+//Postcondición: buffer contiene token hasta '-' o '\n', pcad avanza o se pone a -1 si es fin
+
+
     char* caddatpar (char *cad, int *pcad, char* buffer){
         int j = 0;
          buffer[0] = '\0';
@@ -222,6 +252,12 @@ else if (cad[*pcad] == '\n') { //MANEJO DE SALTO DE LINEA
     return buffer;
 
     }
+
+//Cabecera: partidas* crearpar(char* cad, int* numpar)
+//Precondición: cad tiene formato de partida (JUGADOR:ID SALA: \n ID OBJETO:... \nCONEXIÓN:... \nPUZLE:...\n), numpar no es NULL
+//Postcondición: Devuelve array dinámico de partidas, *numpar contiene el número de partidas creadas
+
+
 
 //ALMACENO TODAS LAS PARTIDAS
 partidas* crearpar(char* cad, int* numpar){

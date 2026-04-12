@@ -13,12 +13,20 @@
 #include <string.h>
 //SUSANA v 
 
+//Cabecera: void limpiar(char* buffer)
+//Precondición: buffer != NULL y tiene tamaño de 200
+//Postcondición: buffer es devuelto siendo todos sus caracteres '\0'
+
 void limpiar(char* buffer) {  
     for (int i = 0; i < 200; i++) {
         buffer[i] = '\0';
     }
 }
 
+
+//Cabecera: char* ficherotocad(char* filepath, char* cad)
+//Precondición: filepath es cadena válida, el archivo existe y se puede leer
+//Postcondición: devuelve cadena dinámica con contenido del archivo (NULL si error)
 char* ficherotocad(char* filepath, char* cad) {
     int lineas = 1;
     const int maxlinea = 200;
