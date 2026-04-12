@@ -181,7 +181,7 @@ void menu_juego(partidas *p_actual, sala *v_salas, conexion *v_conex, jugador *v
 // #include de tus cabeceras
 
 // La función devuelve un puntero a la partida específica del usuario (o NULL si falla)
-partidas* cargar_partida_existente(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas) { //funcion Mario
+partidas* login_jugador(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas) { //funcion Mario
     char user[11];
     char pass[9];
     int id_jugador_encontrado = -1;
