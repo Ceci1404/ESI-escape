@@ -60,81 +60,71 @@ char* ficherotocad(char* filepath, char* cad) {
 
 //se deben declarar en el main como variables que se actualicen cada vez que se modifique el número de jugadores o el número de partidas
 
-void guardar_ficheros(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas) {
+void guardar_datos(jugador *lista_jugadores, int total_jugadores, partidas *p_activa) {
     
-    printf("--- Guardando progreso en los ficheros ---\n");
+    printf("\n[SISTEMA] Iniciando guardado de seguridad...\n");
 
-    
-    FILE *f_jug = fopen("jugadores.txt", "w");
-    
-    if (f_jug != NULL) {
-        // Primero guardamos el total de jugadores
-        fprintf(f_jug, "%d\n", total_jugadores); 
-
+    //guardar jugadores
+    FILE *f_jug = fopen("Jugadores.txt", "w");
+    if (f_jug == NULL) {
+        printf("[ERROR] No se pudo acceder a Jugadores.txt para escritura.\n");
+    } else {
+        // Recorremos el array escribiendo directamente al buffer del archivo
         for (int i = 0; i < total_jugadores; i++) {
-            // Datos principales del jugador
-            fprintf(f_jug, "%s %s %s %s %d %d\n",
-                    lista_jugadores[i].id_jugador,
+            fprintf(f_jug, "%s-%s-%s-%s", 
+                    lista_jugadores[i].id_jugador, 
                     lista_jugadores[i].nomb_jugador, 
-                    lista_jugadores[i].jugador,
-                    lista_jugadores[i].password,
-                    lista_jugadores[i].cant_obj,
-                    lista_jugadores[i].tamainv);
+                    lista_jugadores[i].jugador, 
+                    lista_jugadores[i].password);
 
-            // Inventario dinámico del jugador
+            
             for (int j = 0; j < lista_jugadores[i].cant_obj; j++) {
-                fprintf(f_jug, "%s\n", lista_jugadores[i].inv[j].objinv);
+                fprintf(f_jug, "-%s", lista_jugadores[i].inv[j].objinv);
             }
+            fprintf(f_jug, "\n");
         }
         fclose(f_jug);
-        printf("OK: 'jugadores.txt' guardado con %d jugadores.\n", total_jugadores);
-    } else {
-        printf("Error: No se pudo abrir jugadores.txt para guardar.\n");
+        printf(" -> Base de datos de jugadores actualizada.\n");
     }
 
-    
-    FILE *f_part = fopen("partidas.txt", "w");
-    
-    if (f_part != NULL) {
-        // Primero guardamos el total de partidas
-        fprintf(f_part, "%d\n", total_partidas); 
+    // =========================================================================
+    // FASE 2: GUARDAR PARTIDA ACTIVA (Formato estricto de etiquetas)
+    // =========================================================================
+    // Solo guardamos si realmente hay una partida activa cargada en RAM
+    if (p_activa != NULL) {
+        FILE *f_part = fopen("Partida.txt", "w");
+        if (f_part == NULL) {
+            printf("[ERROR] No se pudo acceder a Partida.txt para escritura.\n");
+        } else {
+            // Imprimimos etiquetas base
+            fprintf(f_part, "JUGADOR: %02d\n", p_activa->jug_actual);
+            fprintf(f_part, "SALA: %02d\n", p_activa->sala_actual);
 
-        for (int i = 0; i < total_partidas; i++) {
-            // Datos principales de la partida
-            fprintf(f_part, "%d %d %d %d\n",
-                    lista_partidas[i].jug_actual,
-                    lista_partidas[i].sala_actual,
-                    lista_partidas[i].num_conexunlocked,
-                    lista_partidas[i].num_puzles);
-
-            // Conexiones (con if-else normal)
-            for (int j = 0; j < lista_partidas[i].num_conexunlocked; j++) {
-                int estado_conexion;
-                if (lista_partidas[i].conex_desbloqueadas[j].activa == true) {
-                    estado_conexion = 1;
-                } else {
-                    estado_conexion = 0;
-                }
-                fprintf(f_part, "%s %d\n", lista_partidas[i].conex_desbloqueadas[j].id_conexion, estado_conexion);
+            // OBJETOS: Imprimimos leyendo desde el array objpar[10]
+            for (int i = 0; i < p_activa->num_objetospar; i++) {
+                fprintf(f_part, "OBJETO: %s-%s\n", p_activa->objpar[i].id_obj, p_activa->objpar[i].localiz);
             }
 
-            // Puzles (con if-else normal)
-            for (int j = 0; j < lista_partidas[i].num_puzles; j++) {
-                int estado_puzle;
-                if (lista_partidas[i].puzles_estado[j].resuelto == true) {
-                    estado_puzle = 1;
-                } else {
-                    estado_puzle = 0;
-                }
-                fprintf(f_part, "%s %d\n", lista_partidas[i].puzles_estado[j].id_puzle, estado_puzle);
+            // CONEXIONES: Uso de operador ternario (? :) para máxima eficiencia sin bloques if/else
+            for (int i = 0; i < p_activa->num_conexunlocked; i++) {
+                fprintf(f_part, "CONEXIÓN: %s-%s\n", 
+                        p_activa->conex_desbloqueadas[i].id_conexion, 
+                        (p_activa->conex_desbloqueadas[i].activa == TRUE) ? "Activa" : "Bloqueada");
             }
+
+            // PUZLES: Uso de operador ternario
+            for (int i = 0; i < p_activa->num_puzles; i++) {
+                fprintf(f_part, "PUZLE: %s-%s\n", 
+                        p_activa->puzles_estado[i].id_puzle, 
+                        (p_activa->puzles_estado[i].resuelto == TRUE) ? "Resuelto" : "Pendiente");
+            }
+
+            fclose(f_part);
+            printf(" -> Estado de la partida actual guardado con exito.\n");
         }
-        fclose(f_part);
-        printf("OK: 'partidas.txt' guardado con %d partidas.\n", total_partidas);
     } else {
-        printf("Error: No se pudo abrir partidas.txt para guardar.\n");
+         printf(" -> [AVISO] No hay ninguna partida en curso para guardar.\n");
     }
 
-    printf("--- Proceso de guardado finalizado ---\n");
-    return lista_partidas;
+    printf("[SISTEMA] Guardado finalizado.\n\n");
 }
