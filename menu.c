@@ -22,11 +22,7 @@
 #include "usarobjeto.h"
 #include "resolver.h"
 
-// --- PROTOTIPOS ---
-void menu_principal();
-void crear_nueva_partida(partida *p_actual, jugador *v_jug, int *total_jugadores);
-int cargar_partida_existente(partida *p_actual, jugador *v_jug, int total_jugadores, partidas *v_partidas, int total_partidas);
-void menu_juego(partida *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas);
+
 // --- MAIN ---
 int main() {
     menu_principal(); 
