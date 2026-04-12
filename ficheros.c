@@ -131,3 +131,42 @@ void guardar_datos(jugador *lista_jugadores, int total_jugadores, partidas *p_ac
 
     printf("Guardado finalizado.\n\n");
 }
+
+
+
+// Esta función es la que busca si el usuario existe y coincide la clave
+partidas* login_jugador(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas) {
+    char user_input[20];
+    char pass_input[20];
+    int encontrado = -1;
+
+    printf("\n--- ACCESO AL SISTEMA ---\n");
+    printf("Usuario: "); 
+    scanf("%s", user_input);
+    printf("Contrasena: "); 
+    scanf("%s", pass_input);
+
+    // 1. Buscamos en el vector de jugadores que Susana cargó del fichero
+    for (int i = 0; i < total_jugadores; i++) {
+        // Comparamos el usuario (campo 'jugador' o 'id_jugador' según tu estructura)
+        if (strcmp(lista_jugadores[i].id_jugador, user_input) == 0) {
+            // 2. Si el usuario existe, comprobamos la contraseña (campo 'password')
+            if (strcmp(lista_jugadores[i].password, pass_input) == 0) {
+                encontrado = i;
+                break; // Salimos del bucle porque ya lo hemos encontrado
+            }
+        }
+    }
+
+    // 3. Resultado de la búsqueda
+    if (encontrado != -1) {
+        printf("\n[OK] Bienvenido, %s. Cargando tus progresos...\n", lista_jugadores[encontrado].nomb_jugador);
+        
+        // Devolvemos el puntero a la partida guardada que corresponde a ese jugador
+        // (Asumimos que están en el mismo orden en los vectores)
+        return &lista_partidas[encontrado]; 
+    } else {
+        printf("\n[ERROR] El usuario o la contrasena no son validos.\n");
+        return NULL; // Devolvemos NULL para que el menu.c sepa que no debe entrar al juego
+    }
+}
