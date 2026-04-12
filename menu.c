@@ -99,128 +99,53 @@ void crear_nueva_partida(partidas *p, sala *v_salas, conexion *v_conex, jugador 
 }
 
 
-void cargar_partida_existente(partidas *p, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas) {
-    printf("\n[CARGANDO PARTIDA...]\n");
-    
-    
-    leerficheros(v_salas, v_conex, v_jug, v_obj, v_puz);
-    
-    
-    // Asumo que le pasas la partida para que la rellene con los datos del txt
-    cargarficheros(p);
-    
-    printf("\n¡Partida cargada! Reanudando desde la sala %s...\n", p->sala_actual);
-    
-    
-    menu_juego(p, v_salas, v_conex, v_jug, v_obj, v_puz, nsal, nobj, ncon, npuz, v_partidas, total_jugadores, total_partidas);
-}
 
 
-void menu_juego(partidas *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int nsal, int nobj, int ncon, int npuz, partidas *v_partidas, int total_jugadores, int total_partidas) { 
-    int p = 0;
 
-    do {
-        printf("\n   --Sala Actual: %s--\n", p_actual->sala_actual); 
-        
-        printf("1. Describir sala.\n");
-        printf("2. Examinar (objetos y salidas).\n"); 
-        printf("3. Entrar en otra sala.\n");
-        printf("4. Coger objeto.\n");
-        printf("5. Soltar objeto.\n"); 
-        printf("6. Inventario.\n");
-        printf("7. Usar objeto.\n");
-        printf("8. Resolver puzle / introducir codigo.\n"); 
-        printf("9. Guardar partida.\n");
-        printf("10. Volver.\n");
-        printf("Elige una accion: ");
-
-        scanf("%d", &p);
-
-        if(p < 1 || p > 10){
-            printf("OPCION INCORRECTA, POR FAVOR ELIJA CORRECTAMENTE.\n");
-        } else {
-            switch(p) {
-                case 1:
-                    describir(v_salas, *p_actual); 
-                    break;
-                case 2:
-                    examinar(v_salas, v_obj, *p_actual, *v_jug, nsal, nobj, 10, ncon);
-                    break;
-                case 3: 
-                    entrarsala(p_actual, v_conex, v_salas, v_conex, ncon, nsal);
-                    break;
-                case 4:
-                    cogerobjeto(*v_jug, *v_obj, *p_actual);
-                    break;
-                case 5:
-                    soltarobjeto(*v_jug, *v_obj, *p_actual);
-                    break;
-                case 6:
-                    mostrarinventario(*v_jug, *v_obj, *p_actual);
-                    break;
-                case 7:
-                    usarobjeto(*v_obj, *p_actual, *v_conex, *v_jug);
-                    break;
-                case 8:
-                    resolver(*v_puz, *p_actual, npuz);
-                    break;
-                case 9:
-                    printf("Guardando progreso de la partida...\n");
-                    // Llamada exacta a tu función de ficheros.c original
-                    guardar_ficheros(v_jug, total_jugadores, v_partidas, total_partidas); 
-                    break;
-                case 10:
-                    printf("Volviendo al menu principal...\n");
-                    break;
-            }
-        }
-    } while(p != 10); 
-
-#include <stdio.h>
-#include <string.h>
-// #include de tus cabeceras
-
-// La función devuelve un puntero a la partida específica del usuario (o NULL si falla)
-partidas* login_jugador(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas) { //funcion Mario
+partidas* cargar_partida_existente(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas) {
     char user[11];
     char pass[9];
-    int id_jugador_encontrado = -1;
+    int id_numerico_jugador = -1;
 
-    printf("\n--- CARGAR PARTIDA ---\n");
-    printf("Introduce tu usuario: ");
+    printf("\nACCESO ESI-ESCAPE \n");
+    printf("Usuario: ");
     scanf("%10s", user);
-    printf("Introduce tu contrasena: ");
+    printf("Contraseña: ");
     scanf("%8s", pass);
 
-    // 1. FASE DE LOGIN: Buscamos si el usuario y contraseña existen en la RAM
+    // 1. Buscamos al jugador en el array de jugadores
     for (int i = 0; i < total_jugadores; i++) {
+        
+        // Comprobamos si coinciden jugador y contraseña
         if (strcmp(lista_jugadores[i].jugador, user) == 0 && 
             strcmp(lista_jugadores[i].password, pass) == 0) {
             
-            id_jugador_encontrado = i; // Guardamos su índice/ID
-            break;
+            // Convertimos su ID de texto ("01") a número (1)
+            id_numerico_jugador = atoi(lista_jugadores[i].id_jugador);
+            printf("\n¡Bienvenido, %s!\n", lista_jugadores[i].nomb_jugador);
+            break; // Rompemos el bucle porque ya lo hemos encontrado
         }
     }
 
-    // Si el bucle termina y sigue siendo -1, no se encontró
-    if (id_jugador_encontrado == -1) {
+    // Si el ID sigue siendo -1, es que el 'if' anterior nunca se cumplió
+    if (id_numerico_jugador == -1) {
         printf("Error: Usuario o contrasena incorrectos.\n");
         return NULL;
     }
 
-    // 2. FASE DE ASIGNACIÓN: Buscamos cuál es su partida
+    // 2. Buscamos su partida correspondiente en el array de partidas
     for (int i = 0; i < total_partidas; i++) {
-        // Comprobamos si el número de jugador de la partida coincide con nuestro usuario
-        if (lista_partidas[i].jug_actual == id_jugador_encontrado) {
-            printf("\n¡Bienvenido de nuevo, %s!\n", lista_jugadores[id_jugador_encontrado].nomb_jugador);
-            printf("Te quedaste en la sala: %d\n", lista_partidas[i].sala_actual);
+        
+        // Si el número de jugador de la partida coincide con el nuestro...
+        if (lista_partidas[i].jug_actual == id_numerico_jugador) {
+            printf("Partida encontrada. Cargando sala %d...\n", lista_partidas[i].sala_actual);
             
-            // Devolvemos la dirección de memoria EXACTA de su partida
+            // Devolvemos el puntero exacto a su partida
             return &lista_partidas[i]; 
         }
     }
 
-    // Si el usuario existe pero por algún motivo no se encontró una partida vinculada
-    printf("Aviso: No se ha encontrado ninguna partida guardada para este usuario.\n");
+    // Si el bucle termina y no ha devuelto nada (return), es que no hay partida
+    printf("Aviso: No se encontraron datos de partida para este usuario.\n");
     return NULL;
 }
