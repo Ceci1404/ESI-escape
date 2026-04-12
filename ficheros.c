@@ -67,7 +67,7 @@ void guardar_datos(jugador *lista_jugadores, int total_jugadores, partidas *p_ac
     //guardar jugadores
     FILE *f_jug = fopen("Jugadores.txt", "w");
     if (f_jug == NULL) {
-        printf("[ERROR] No se pudo acceder a Jugadores.txt para escritura.\n");
+        printf("No se pudo acceder a Jugadores.txt para escritura.\n");
     } else {
         // Recorremos el array escribiendo directamente al buffer del archivo
         for (int i = 0; i < total_jugadores; i++) {
