@@ -1,10 +1,5 @@
 #ifndef CONEXIONES_H
 #define CONEXIONES_H
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 
 typedef struct {
     char id_conexion[4]; 

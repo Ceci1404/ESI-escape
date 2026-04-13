@@ -29,12 +29,18 @@ int main() {
     partidas *p;
 
     //Llamada a la inicialización de los vectores a partir de los ficheros
+        cad= ficherotocad("sala.txt",cad);
     s = crearsala(cad,&numsal);
+        cad= ficherotocad("conexiones.txt",cad);
     c = crearconex(cad,&numcon);
+        cad= ficherotocad("jugadores.txt",cad);
     j = crearjug(cad,&numjug);
+        cad= ficherotocad("objetos.txt",cad);
     o = crearobj(cad,&numobj);
+        cad= ficherotocad("puzles.txt",cad);
     puz = crearpuz(cad,&numpuz);
-    p = crearpartida(cad,&numpar);
+        cad= ficherotocad("partida.txt",cad);
+    p = crearpar(cad,&numpar);
 
 
         //Llamada a menú principal para la inicialización del juego.

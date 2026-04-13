@@ -1,7 +1,6 @@
 #ifndef PARTIDA_H
 #define PARTIDA_H
 
-
 typedef enum {FALSE,TRUE } bool;
 
 //cambiar esto a juego.h
