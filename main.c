@@ -16,20 +16,17 @@
 int main() {
 
     //Definición de variables necesarias para la inicialización de las funciones
-    int *numsal=0;
-    int *numobj=0;
-    int *numcon=0;
-    int *numpuz=0;
+    int *numsal, *numobj, *numcon, *numpuz, *numjug, *numpar;
     int *jug=0;
     int *par=0;
     char *cad=NULL;
 
-    sala *s=NULL;
-    conexion *c=NULL;
-    jugador *j=NULL;
-    objetos *o=NULL;
-    puzle *puz=NULL;
-    partidas *p=NULL;
+    sala *s;
+    conexion *c;
+    jugador *j;
+    objetos *o;
+    puzle *puz;
+    partidas *p;
 
     //Llamada a la inicialización de los vectores a partir de los ficheros
     s = crearsala(cad,&numsal);
@@ -41,7 +38,7 @@ int main() {
 
 
         //Llamada a menú principal para la inicialización del juego.
-    menu_principal(*p, s, c, j, o, puz, &numsal, &numobj, &numcon, &numpuz, &jug, &par);
+    menu_principal(p, s, c, j, o, puz, &numsal, &numobj, &numcon, &numpuz, &jug, &par);
 
     return 0;
 }
