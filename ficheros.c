@@ -143,6 +143,7 @@ void guardar_datos(jugador *lista_jugadores, int total_jugadores, partidas *p_ac
 
 
 // Esta función es la que busca si el usuario existe y coincide la clave
+//DE Fran
 partidas* login_jugador(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas) {
     char user_input[20];
     char pass_input[20];
