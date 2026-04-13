@@ -124,7 +124,7 @@ void menu_juego(partidas *p_actual, sala *v_salas, conexion *v_conex, jugador *v
         }
     } while(p != 10); 
 }
-/*
+
 // --- NUEVA PARTIDA ---
 void crear_nueva_partida(partida *p_actual, jugador *v_jug, int *total_jugadores) {
     printf("\n[CREANDO NUEVA PARTIDA...]\n");
@@ -150,7 +150,7 @@ void crear_nueva_partida(partida *p_actual, jugador *v_jug, int *total_jugadores
     printf("\n¡Bienvenido a ESI Escape, %s! Despiertas en una sala oscura...\n", p_actual->jug_actual.nomb_jugador);
 }
 
-
+//Mario
 int cargar_partida_existente(partida *p_actual, jugador *v_jug, int total_jugadores, partidas *v_partidas, int total_partidas) {
     printf("\n[CARGANDO PARTIDA...]\n");
     
