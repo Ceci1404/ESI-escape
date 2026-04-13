@@ -39,6 +39,7 @@ void cogerobjeto(jugador *j, objetos *o, partidas *p, int *numobj, int *jug, int
 if (objetos_en_sala == 0) {
 printf("No hay ningún objeto en esta sala\n");
 }
+}
 
 
 
@@ -292,6 +293,7 @@ void verificarusuario(jugador *j, int *numjug, int *jug, partidas *p, int *numpa
         }
     }while(correcto!=1);
 }
+
 
 
 //Cabecera: void nuevapartida(jugador *j, partida *p, int *jug, int *numpar)
