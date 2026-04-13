@@ -10,8 +10,7 @@
     void limpiar(char* cad);
     //SUSANA ^
     
-    void cargarficheros();
-    void nuevapartida(jugador *);
+    void guardar_datos()
 partidas* login_jugador(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas);
 
 #endif
