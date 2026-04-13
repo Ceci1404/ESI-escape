@@ -17,12 +17,11 @@ void describir( sala *, partidas *, int *, int *);
 //Cabecera: void examinar(salas *, objetos *, partida , jugador *, conexion*, int *, int *, int *, int *, int *)
 //Precondición: La funcion recive la  estructura de salas, objetos, partida y jugador inicializadas
 //Postcondición: Se le describira al jugador los objetos de la sala actual y las conexiones de salida.
-void examinar(sala *, objetos *, partidas *, int *, int *, int *, int *, int *, int *);
-
+void examinar(sala *, objetos *, partidas* , jugador *, conexion* , int *, int *, int *, int *, int *, int *);
 //Cabecera: void soltarobjeto(jugadores *, objetos *, partida , int *)
 //Precondición: La funcion recive la estructura de jugadores, objetos y partida inicializada
 //Postcondición: El jugador mostrara los objetos que tiene en su inventario
-void mostrarinventario(jugador *, objetos *, partidas *, int *);
+void mostrarinventario(jugador *, objetos *, partidas , int *);
 
 
 //Cabecera: void resolver(puzles *, partida , int *, int *)
@@ -34,7 +33,7 @@ void resolver(puzle *, partidas *, int *, int *);
 //Cabecera: void soltarobjeto(puzle *, partidas , int *, jugador *, objetos *, int *, int *)
 //Precondición: La funcion recive la estructura de puzle, jugadores, objetos y partida inicializada
 //Postcondición: El jugador soltara un objeto del inventario en la sala actual
-void soltarobjeto(puzle *, partidas *, int *, jugador *, objetos *, int *, int *);
+void soltarobjeto(puzle *, partidas *, int * , jugador *, objetos *, int *, int *);
 
 
 //Cabecera: void entrarsala(partidas *,sala* , sala , conexion*, int *, int *, int *)
@@ -57,5 +56,5 @@ void verificarusuario(jugador *, int *, int *, partidas *, int *, int *);
 //Cabecera: void nuevapartida(jugador *, partidas *, int *, int *, int *, int *)
 //Precondición:  Las estructuras jugadorespartida deben estar inicializadas
 //Postcondición: Se añadira un nuevo jugador en el vector de jugadores y se inicializara la partida con los datos del nuevo jugador
-void nuevapartida(jugador *, partidas *, int *, int *, int *, int *);
+void nuevapartida(jugador *, partidas *,sala *, int *, int *, int *, int *);
 #endif

@@ -117,7 +117,7 @@ void guardar_datos(jugador *lista_jugadores, int total_jugadores, partidas *p_ac
                         else
                            estado="Bloqueada";
                 fprintf(f_part, "CONEXIÓN: %s-%s\n", 
-                        p_activa->conex_desbloqueadas[i].id_conexion,estado)
+                        p_activa->conex_desbloqueadas[i].id_conexion,estado);
             }
 
            
@@ -127,7 +127,7 @@ void guardar_datos(jugador *lista_jugadores, int total_jugadores, partidas *p_ac
                      estado="Resuelto";
                 else
                      estado="Pendiente";
-                fprintf(f_part, "PUZLE: %s-%s\n",p_activa->puzles_estado[i].id_puzle,estado)
+                fprintf(f_part, "PUZLE: %s-%s\n",p_activa->puzles_estado[i].id_puzle,estado);
             }
 
             fclose(f_part);

@@ -23,13 +23,13 @@ typedef struct{
 }objloc;
 typedef struct {
     
-    int jug_actual;           
-    int sala_actual;
+    char jug_actual[3];           
+    char sala_actual[3];
     objloc objpar[10];
     int num_objetospar;          
-    conexunlocked conex_desbloqueadas[50];  
+    conexunlocked *conex_desbloqueadas;  
     int num_conexunlocked;   
-    puzleresuelto puzles_estado[50];      
+    puzleresuelto *puzles_estado;      
     int num_puzles;
 
 
