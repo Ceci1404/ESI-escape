@@ -289,10 +289,10 @@ void verificarusuario(jugador *j, int *numjug, int *jug, partidas *p, int *numpa
 }
 
 
-//Cabecera: void nuevapartida(jugador *j, partida *p, int *jug)
+//Cabecera: void nuevapartida(jugador *j, partida *p, int *jug, int *numpar)
 //Precondición: Las estructuras de  jugadores y partida deben estar inicializadas
 //Postcondición: Se añadira un nuevo jugador en el vector de jugadores y se inicializara la partida con los datos del nuevo jugador
-void nuevapartida(jugador *j, partidas *p, int *jug, int *njug , int *par){
+void nuevapartida(jugador *j, partidas *p, int *jug, int *njug , int *par, int *numpar){
     int correcto=0,repetido=0, x, y;
 
     realloc(j, (njug+1)*sizeof(jugador));
@@ -367,7 +367,7 @@ void nuevapartida(jugador *j, partidas *p, int *jug, int *njug , int *par){
     strcpy(j[*(njug-1)].id_jugador, p[*(par)].id_jugador);
 
     //Sala actual
-    for(x=0; x<=numsal; x++){
+    for(x=0; x<=numpar; x++){
         if(strcmp(s[x].tipo, INICIO)==0){
             strcpy(p[*par].sala_actual, s[x].id_sala);
         }
