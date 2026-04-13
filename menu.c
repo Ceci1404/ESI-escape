@@ -19,10 +19,10 @@
 
 
 // --- MENÚ PRINCIPAL ---
-void menu_principal() {
+void menu_principal(partidas *p_actual, sala *v_salas, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz, int *numsal, int *numobj, int *numcon, int *numpuz, int *jug, int *par) {
     int x;
     do {
-        printf("\n       --ESI SCAPE--     \n");
+        printf("\n       --BIENVENIDO A ESI SCAPE--     \n");
         printf("        ----------\n");
         printf("1. Nueva partida.\n");
         printf("2. Cargar partida.\n"); 
@@ -56,6 +56,8 @@ void menu_principal() {
 
                 case 3:
                     printf("Saliendo de ESI Escape. ¡Hasta pronto!\n");
+                    guardar_ficheros(v_jug, total_jugadores, v_partidas, total_partidas);
+                    return 0;
                     break;
             }
         }
@@ -116,6 +118,7 @@ void menu_juego(partidas *p_actual, sala *v_salas, conexion *v_conex, jugador *v
                     break;
                 case 10:
                     printf("Volviendo al menu principal...\n");
+                    menu_principal();
                     break;
             }
         }
