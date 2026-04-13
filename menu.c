@@ -124,7 +124,7 @@ void menu_juego(partidas *p_actual, sala *v_salas, conexion *v_conex, jugador *v
         }
     } while(p != 10); 
 }
-/*
+
 // --- NUEVA PARTIDA ---
 void crear_nueva_partida(partida *p_actual, jugador *v_jug, int *total_jugadores) {
     printf("\n[CREANDO NUEVA PARTIDA...]\n");
