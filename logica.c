@@ -15,9 +15,11 @@
 void cogerobjeto(jugador *j, objetos *o, partidas *p, int *numobj, int *jug, int *par){
     int coger, i=0;
     int x;
-    
+    int objetos_en_sala=0;
     for(x=0; x<=j[*jug].cant_obj; x++) {
+    
         if (strcmp(p[*par].sala_actual,o[x].localiz)==0){
+            objetos_en_sala=1;
             if (j[*jug].tamainv>j[*jug].cant_obj){     //Si el inventario del jugador no esta lleno, se le pregunta si quiere coger el objeto
                 do{
                     printf("Puedes coger el objeto %s, ¿quieres cogerlo? Si:1 No:0 \n", o[x].nomb_obj);
@@ -32,9 +34,10 @@ void cogerobjeto(jugador *j, objetos *o, partidas *p, int *numobj, int *jug, int
                 }
             }
         }
-        else printf("No hay ningun objeto en esta sala \n");
+        
     }
-   
+if (objetos_en_sala == 0) {
+printf("No hay ningún objeto en esta sala\n");
 }
 
 
