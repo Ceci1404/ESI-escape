@@ -137,7 +137,7 @@ void resolver(puzle *puz, partidas *p, int *numpuz, int *par){
                         scanf("%d", &resolver);
                     }while(resolver!=1 && resolver!=0);
                     if(resolver==1){
-                        puz[x].sol;                             //Muestra la solución del puzle
+                        printf("%s\n", puz[x].sol);                             //Muestra la solución del puzle
                     }
                 }
             }
