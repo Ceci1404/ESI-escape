@@ -7,6 +7,9 @@
     //SUSANA v
     //cambiar estas funciones a juego.h
 
+//Cabecera: char* ficherotocad(char* filepath, char* cad)
+//Precondición: filepath es cadena válida, el archivo existe y se puede leer
+//Postcondición: devuelve cadena dinámica con contenido del archivo (NULL si error)
 char* ficherotocad(char* filepath,char* cad);
 //Cabecera: void limpiar(char* buffer)
 //Precondición: buffer != NULL y tiene tamaño de 200
