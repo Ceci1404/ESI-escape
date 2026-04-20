@@ -6,7 +6,10 @@
 //LECTURA Y ESCRITURA DE FICHEROS
     //SUSANA v
     //cambiar estas funciones a juego.h
-    char* ficherotocad(char* filepath,char* cad);
+//Cabecera: void limpiar(char* buffer)
+//Precondición: buffer != NULL y tiene tamaño de 200
+//Postcondición: buffer es devuelto siendo todos sus caracteres '\0'
+char* ficherotocad(char* filepath,char* cad);
     void limpiar(char* cad);
     //SUSANA 
 
