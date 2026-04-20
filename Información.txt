@@ -2,7 +2,7 @@ División de módulos:
 
 Ficheros-------> Susana Fernandez Sierra (Encargada de módulo), Mario De Serdio Enriquez.
 Juego----------> Susana Fernandez Sierra.
-Logica---------> Cecilia Gallardo Acevedo.
+Logica---------> Cecilia Gallardo Acevedo,Francisco José Mellado Vidal(funciones).
 Menú-----------> Francisco José Mellado Vidal (Encargado de módulo), Susana Fernandez Sierra, Cecilia Gallardo Acevedo.
 Objetos--------> Susana Fernandez Sierra.
 Partida--------> Susana Fernandez Sierra.
