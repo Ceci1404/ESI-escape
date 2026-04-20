@@ -41,6 +41,7 @@ char* obtenercad(char* cad, int* pcad, char* buffer) {
 }
 
 
+
 //Cabecera: sala* crearsala(char* cad, int *numsal)
 //Precondición: cad tiene formato "ID-NOMBRE-TIPO-DESCRIP", numsal no es NULL
 //Postcondición: Devuelve array dinámico de salas, *numsal contiene el número de salas creadas
@@ -140,57 +141,55 @@ conexion* crearconex(char* cad, int *numcon){
 jugador* crearjug(char* cad, int *numjug){
     jugador* jug = NULL;
     int njug = 0;
-    int pjug = 0;
-    char buffer[151];
+    int i, pos;
+    char linea[500];
     
-    //printf("  [crearjug] Iniciando...\n");
+    *numjug = 0;
     
-    do{
-        obtenercad(cad, &pjug, buffer);
-        if(pjug == -1 || strlen(buffer) == 0) break;
-        
-        jug = (jugador*) realloc(jug, (njug + 1) * sizeof(jugador));
-        
-        // Inicializar
-        jug[njug].cant_obj = 0;
-        jug[njug].tamainv = 10;
-        jug[njug].inv = (inventario*) malloc(10 * sizeof(inventario));
-        
-        // ID
-        strcpy(jug[njug].id_jugador, buffer);
-        
-        // Nombre completo
-        obtenercad(cad, &pjug, buffer);
-        strcpy(jug[njug].nomb_jugador, buffer);
-        
-        // Nombre de usuario
-        obtenercad(cad, &pjug, buffer);
-        strcpy(jug[njug].jugador, buffer);
-        
-        // Contraseña
-        obtenercad(cad, &pjug, buffer);
-        strcpy(jug[njug].password, buffer);
-        
-        // Leer objetos del inventario
-        while(cad[pjug] != '\n') {
-            if (pjug==-1) break;
-            obtenercad(cad, &pjug, buffer);
-                strcpy(jug[njug].inv[jug[njug].cant_obj].objinv, buffer);
-                jug[njug].cant_obj++;
+    // Dividir por líneas
+    pos = 0;
+    while(cad[pos] != '\0') {
+        // Extraer una línea
+        i = 0;
+        while(cad[pos] != '\n' && cad[pos] != '\0') {
+            linea[i++] = cad[pos++];
         }
-        /*
-        printf("  [crearjug] Jugador %d: id=%s, nombre=%s, usuario=%s, pass=%s, objetos=%d\n", 
-               njug, jug[njug].id_jugador, jug[njug].nomb_jugador, 
-               jug[njug].jugador, jug[njug].password, jug[njug].cant_obj);
-               */
+        linea[i] = '\0';
+        if(cad[pos] == '\n') pos++;
         
-        njug++;
-    }while (pjug!=-1);
+        if(strlen(linea) > 0) {
+            // Procesar la línea
+            jug = (jugador*) realloc(jug, (njug + 1) * sizeof(jugador));
+            
+            jug[njug].cant_obj = 0;
+            jug[njug].tamainv = 10;
+            jug[njug].inv = (inventario*) malloc(10 * sizeof(inventario));
+            
+            // Parsear la línea
+            char *token = strtok(linea, "-");
+            if(token) strcpy(jug[njug].id_jugador, token);
+            token = strtok(NULL, "-");
+            if(token) strcpy(jug[njug].nomb_jugador, token);
+            token = strtok(NULL, "-");
+            if(token) strcpy(jug[njug].jugador, token);
+            token = strtok(NULL, "-");
+            if(token) strcpy(jug[njug].password, token);
+            
+            while((token = strtok(NULL, "-")) != NULL) {
+                strcpy(jug[njug].inv[jug[njug].cant_obj].objinv, token);
+                jug[njug].cant_obj++;
+            }
+            
+            printf("  Jugador %d: id=%s, usuario=%s, objetos=%d\n", njug, jug[njug].id_jugador, jug[njug].jugador, jug[njug].cant_obj);
+            njug++;
+        }
+    }
     
     *numjug = njug;
-    printf("  [crearjug] Total jugadores: %d\n", njug);
+    printf("  Total jugadores: %d\n", njug);
     return jug;
 }
+
 //Cabecera: objetos* crearobj(char* cad, int* numobj)
 //Precondición: cad tiene formato "ID-NOMB-DESC-LOCAL", numobj no es NULL
 //Postcondición: Devuelve array dinámico de objetos, *numobj contiene el número de objetos creados
