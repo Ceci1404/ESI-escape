@@ -1,0 +1,13 @@
+División de módulos:
+
+Ficheros-------> Susana Fernandez Sierra (Encargada de módulo), Mario De Serdio Enriquez.
+Juego----------> Susana Fernandez Sierra.
+Logica---------> Cecilia Gallardo Acevedo.
+Menú-----------> Francisco José Mellado Vidal (Encargado de módulo), Susana Fernandez Sierra, Cecilia Gallardo Acevedo.
+Objetos--------> Susana Fernandez Sierra.
+Partida--------> Susana Fernandez Sierra.
+Puzles---------> Susana Fernandez Sierra.
+Salas----------> Susana Fernandes Sierra.
+Documentación--> Cecilia Gallardo Acevedo
+
+Para la facilitación de la identificación de que ha hecho cada integrante del grupo consultar los comentarios en el código y/o visualización de actualizaciones en el GitHub.
