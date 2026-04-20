@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+//Modulo hecho por Cecilia Gallardo Acevedo
+
 //Cabecera: void cogerobjeto(jugadores j, objetos o, partida p)
 //Precondición: La funcion recive la estructura de jugadores, objetos y partida
 //Postcondición: El jugador podra coger objetos que esten en la sala actual y se añadiran en el inventario
@@ -70,6 +72,9 @@ void describir( partidas * p, sala *s, conexion *c, jugador *j, objetos *o, puzl
             }
         }
     }
+       printf("Presiona Enter para volver al menú de juego...");
+                getchar();
+                getchar();
 }
 
 //Cabecera: void examinar(salas *s, objetos *o, partida p, jugador j, conexion* c, int *numsal, int *numobj, int *numcon, int *jug)
@@ -281,39 +286,43 @@ void usarobjeto(objetos *o,partidas *p, conexion *c, jugador *j, int *jug, int *
 //Postcondición: Verifica si el usuario existe o no, y si la contraseña es correcta o no
 void verificarusuario(jugador *j, int *numjug, int *jug, partidas *p, int *numpar, int *par){
     char usuario[21], password[9];
-    int x;
-    
-    printf("\n=== ACCESO AL SISTEMA ===\n");
-    
-    while(1) {
-        printf("Ingrese su nombre de usuario: ");
-        scanf("%s", usuario);
-        
-        printf("Ingrese su contrasena: ");
-        scanf("%s", password);
-        
-        for(x = 0; x < *numjug; x++) {
-            if(strcmp(usuario, j[x].jugador) == 0 && strcmp(password, j[x].password) == 0) {
-                printf("Bienvenido %s\n", j[x].nomb_jugador);
-                *jug = x;
-                
-                // Buscar partida
-                for(x = 0; x < *numpar; x++) {
-                    if(strcmp(j[*jug].id_jugador, p[x].jug_actual) == 0) {
-                        *par = x;
-                        printf("Partida cargada.\n");
-                        return;
+    int correcto=0,x;
+    do{
+        printf("Ingrese su nombre de usuario: \n");     
+        scanf("%s",usuario);                            //Se pide el nombre de usuario hasta que se meta el adecuado
+        for(x=0;x<*numjug;x++){
+            if(strcmp(usuario,j[x].nom_jugador)==0){    //Si se encuentra el usuario, se pide la contraseña
+                printf("Ingrese su contraseña: \n");
+                scanf("%s",password);                   
+                do{
+                    if(strcmp(password,j[x].password)==0){          //Si la contraseña es correcta, se le da la bienvenida al jugador y se guarda su posición en el vector de jugadores para usarla posteriormente
+                        printf("Bienvenido %s\n",j[x].nomb_jugador);
+                        *jug=x;
+                        correcto=1;
+                    }else{
+                        printf("Contraseña incorrecta, intente de nuevo: \n");      //Si la contraseña es incorrecta, se le vuelve a pedir hasta que lo sea
+                        scanf("%s",password);
                     }
-                }
-                
-                printf("No se encontro partida. Se creara una nueva.\n");
-                *par = 0;
-                return;
+                }while(correcto==0);
             }
         }
-        
-        printf("Usuario o contrasena incorrectos.\n");
-    }
+        if(correcto==0){
+            printf("Usuario no encontrado, intente de nuevo: \n");              //Aviso si el usuario es incorrecto, luego se volvera a pedir
+        }
+    }while(correcto!=1);
+
+    correcto=0;
+    do{
+        for(x=0;x<*numpar;x++){
+            if (strcmp(j[*jug].id_jugador, p[x].jug_actual)==0){      //Se compara el id del jugador con el id de la partida en el vector
+                correcto=1;
+                *par=x;
+            }
+        }
+    }while(correcto!=1);
+           printf("Presiona Enter para volver al menú de juego...");
+                getchar();
+                getchar();
 }
 
 //Cabecera: void nuevapartida(jugador *j, partida *p, int *jug, int *numpar)
