@@ -50,62 +50,28 @@ printf("No hay ningún objeto en esta sala\n");
 //Cabecera: void describir(salas *s, partida p, int *numsal, int *par)
 //Precondición: La funcion recive la estructura de salas y partida inicializada
 //Postcondición: El jugador ver la descripcion de la sala en la que se encuentra y si es la salida, se le preguntara si quiere volver al menu principal
-void describir(partidas *p, sala *s, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz,
-               int *numsal, int *numobj, int *numcon, int *numpuz, int *numpar, int *numjug, int *jug, int *par){
-    
-    // VERIFICACIONES DE SEGURIDAD
-    if(p == NULL) {
-        printf("ERROR: p es NULL\n");
-        return;
-    }
-    if(par == NULL) {
-        printf("ERROR: par es NULL\n");
-        return;
-    }
-    if(*par < 0) {
-        printf("ERROR: *par = %d es invalido\n", *par);
-        return;
-    }
-    if(numsal == NULL) {
-        printf("ERROR: numsal es NULL\n");
-        return;
-    }
-    if(s == NULL) {
-        printf("ERROR: s es NULL\n");
-        return;
-    }
-    
-    printf("DEBUG: Todo ok, numsal=%d, *par=%d\n", *numsal, *par);
-    
+partidas *, sala *, conexion *, jugador *, objetos *, puzle *,int*, int* , int *, int *, int *, int *, int *, int *
+void describir( partidas * p, sala *s, conexion *c, jugador *j, objetos *o, puzle *pu,int *numsal, int *numobj, int *numcon, int *numpuz, int *numpar, int *numjug, int *jug, int *par){
     int x, volver;
-    
-    for(x = 0; x < *numsal; x++){
-        if(s[x].id_sala == NULL) {
-            printf("ERROR: s[%d].id_sala es NULL\n", x);
-            continue;
-        }
-        if(strcmp(p[*par].sala_actual, s[x].id_sala) == 0){
-            printf("\nEstas en: %s\n", s[x].nomb_sala);
-            printf("%s\n", s[x].descrip);
-            
-            if(s[x].tipo == SALIDA){
-                printf("\nFELICIDADES. Has encontrado la SALIDA.\n");
-                do{
-                    printf("Quieres volver al menu principal? (1=Si, 0=No): ");
-                    scanf("%d", &volver);
-                } while(volver != 1 && volver != 0);
+    for(x=0; x<=*numsal; x++){
+        if(strcmp(p[*par].sala_actual, s[x].id_sala)==0){             //Si la sala actual es igual a la sala del vector se describe
+            printf("Estas en la sala %s, %s \n", s[x].id_sala, s[x].descrip);
+            if(s[x].tipo==SALIDA){
+                printf("Felicidades, has encontrado la salida\n");
                 
-                if(volver == 1){
-                    menu_principal(p, s, v_conex, v_jug, v_obj, v_puz,
-                                   numsal, numobj, numcon, numpuz, numpar, numjug, jug, par);
+                do{
+                    printf("Quieres volver al menu principal? Si:1 No:0 \n");       //Da la opción es afirmativa se llamara al menu principal
+                    scanf("%d", &volver);
+                    if (volver==1){
+                        menu(p, s, c, j,o,p,numsal, numobj, numcon, numpuz, numpar, numjug, jug, par);
                 }
+                    } 
+                }while(volver!=1 && volver!=0);
             }
-            return;
         }
     }
-    
-    printf("Error: No se encontró la sala con ID %s\n", p[*par].sala_actual);
 }
+
 //Cabecera: void examinar(salas *s, objetos *o, partida p, jugador j, conexion* c, int *numsal, int *numobj, int *numcon, int *jug)
 //Precondición: La funcion recive la  estructura de salas, objetos, partida y jugador inicializadas
 //Postcondición: Se le describira al jugador los objetos de la sala actual y las conexiones de salida.
