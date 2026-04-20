@@ -1,8 +1,8 @@
 #ifndef FICHEROS_H
 #define FICHEROS_H
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "jugadores.h"
+#include "partida.h"
+
 //LECTURA Y ESCRITURA DE FICHEROS
     //SUSANA v
     //cambiar estas funciones a juego.h

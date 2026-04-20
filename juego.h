@@ -1,5 +1,11 @@
 #ifndef JUEGO_H
 #define JUEGO_H
+#include "salas.h"
+#include "conexiones.h"
+#include "jugadores.h"
+#include "objetos.h"
+#include "puzles.h"
+#include "partida.h"
 //HECHO POR SUSANA
 
 char* obtenercad(char* cad, int* pcad, char* buffer);

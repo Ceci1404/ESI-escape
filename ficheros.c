@@ -31,13 +31,14 @@ char* ficherotocad(char* filepath, char* cad) {
     const int maxlinea = 200;
     char buffer[200];
     
+    // NO usar cad como parámetro, crear nueva memoria
     cad = (char*)malloc(lineas * maxlinea * sizeof(char));
     if (cad == NULL) return NULL;
     cad[0] = '\0';
     
     FILE* f = fopen(filepath, "r");
     if (f == NULL) {
-        printf("No se ha podido abrir fichero\n");
+        printf("No se ha podido abrir fichero: %s\n", filepath);
         free(cad);
         return NULL;
     }
@@ -55,7 +56,7 @@ char* ficherotocad(char* filepath, char* cad) {
         }
         cad = temp;
         
-        limpiar(buffer);  
+        limpiar(buffer);
     }
     
     fclose(f);
@@ -111,7 +112,7 @@ void guardar_datos(jugador *lista_jugadores, int total_jugadores, partidas *p_ac
             // CONEXIONES: Uso de operador ternario (? :) para máxima eficiencia sin bloques if/else
             for (int i = 0; i < p_activa->num_conexunlocked; i++) {
                 char *estado;
-                        if (p_activa->conex_desbloqueadas[i].activa == TRUE) 
+                        if (p_activa->conex_desbloqueadas[i].activa == 1) 
                              estado="Activa";
                         else
                            estado="Bloqueada";
@@ -122,7 +123,7 @@ void guardar_datos(jugador *lista_jugadores, int total_jugadores, partidas *p_ac
            
             for (int i = 0; i < p_activa->num_puzles; i++) {
                 char *estado;
-                 if (p_activa->puzles_estado[i].resuelto == TRUE) 
+                 if (p_activa->puzles_estado[i].resuelto == 1) 
                      estado="Resuelto";
                 else
                      estado="Pendiente";

@@ -1,8 +1,6 @@
 #ifndef PARTIDA_H
 #define PARTIDA_H
-
-typedef enum {FALSE,TRUE } bool;
-
+#include <stdbool.h>
 //cambiar esto a juego.h
 typedef struct {
     char id_conexion[4];

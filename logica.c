@@ -5,10 +5,11 @@
 #include "objetos.h"
 #include "salas.h"
 #include "puzles.h"
+#include "menu.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <stdbool.h>
 //Cabecera: void cogerobjeto(jugadores j, objetos o, partida p)
 //Precondición: La funcion recive la estructura de jugadores, objetos y partida
 //Postcondición: El jugador podra coger objetos que esten en la sala actual y se añadiran en el inventario
@@ -39,6 +40,9 @@ void cogerobjeto(jugador *j, objetos *o, partidas *p, int *numobj, int *jug, int
 if (objetos_en_sala == 0) {
 printf("No hay ningún objeto en esta sala\n");
 }
+   printf("Presiona Enter para volver al menú principal...");
+                getchar();
+                getchar();
 }
 
 
@@ -46,37 +50,72 @@ printf("No hay ningún objeto en esta sala\n");
 //Cabecera: void describir(salas *s, partida p, int *numsal, int *par)
 //Precondición: La funcion recive la estructura de salas y partida inicializada
 //Postcondición: El jugador ver la descripcion de la sala en la que se encuentra y si es la salida, se le preguntara si quiere volver al menu principal
-void describir( sala *s, partidas *p, int *numsal, int *par){
+void describir(partidas *p, sala *s, conexion *v_conex, jugador *v_jug, objetos *v_obj, puzle *v_puz,
+               int *numsal, int *numobj, int *numcon, int *numpuz, int *numpar, int *numjug, int *jug, int *par){
+    
+    // VERIFICACIONES DE SEGURIDAD
+    if(p == NULL) {
+        printf("ERROR: p es NULL\n");
+        return;
+    }
+    if(par == NULL) {
+        printf("ERROR: par es NULL\n");
+        return;
+    }
+    if(*par < 0) {
+        printf("ERROR: *par = %d es invalido\n", *par);
+        return;
+    }
+    if(numsal == NULL) {
+        printf("ERROR: numsal es NULL\n");
+        return;
+    }
+    if(s == NULL) {
+        printf("ERROR: s es NULL\n");
+        return;
+    }
+    
+    printf("DEBUG: Todo ok, numsal=%d, *par=%d\n", *numsal, *par);
+    
     int x, volver;
-    for(x=0; x<=*numsal; x++){
-        if(strcmp(p[*par].sala_actual, s[x].id_sala)==0){             //Si la sala actual es igual a la sala del vector se describe
-            printf("Estas en la sala %s, %s \n", s[x].id_sala, s[x].descrip);
-            if(s[x].tipo==SALIDA){
-                printf("Felicidades, has encontrado la salida\n");
-                
+    
+    for(x = 0; x < *numsal; x++){
+        if(s[x].id_sala == NULL) {
+            printf("ERROR: s[%d].id_sala es NULL\n", x);
+            continue;
+        }
+        if(strcmp(p[*par].sala_actual, s[x].id_sala) == 0){
+            printf("\nEstas en: %s\n", s[x].nomb_sala);
+            printf("%s\n", s[x].descrip);
+            
+            if(s[x].tipo == SALIDA){
+                printf("\nFELICIDADES. Has encontrado la SALIDA.\n");
                 do{
-                    printf("Quieres volver al menu principal? Si:1 No:0 \n");       //Da la opción es afirmativa se llamara al menu principal
+                    printf("Quieres volver al menu principal? (1=Si, 0=No): ");
                     scanf("%d", &volver);
-                    if (volver==1){
-                        menu(/*Rellenare cuando este el menu terminado */);
-                    } 
-                }while(volver!=1 && volver!=0);
+                } while(volver != 1 && volver != 0);
+                
+                if(volver == 1){
+                    menu_principal(p, s, v_conex, v_jug, v_obj, v_puz,
+                                   numsal, numobj, numcon, numpuz, numpar, numjug, jug, par);
+                }
             }
+            return;
         }
     }
+    
+    printf("Error: No se encontró la sala con ID %s\n", p[*par].sala_actual);
 }
-
-
-//Cabecera: void examinar(salas *s, objetos *o, partida p, jugador j, conexion* c, int *numsal, int *numobj, int *numinv, int *numcon, int *jug)
+//Cabecera: void examinar(salas *s, objetos *o, partida p, jugador j, conexion* c, int *numsal, int *numobj, int *numcon, int *jug)
 //Precondición: La funcion recive la  estructura de salas, objetos, partida y jugador inicializadas
 //Postcondición: Se le describira al jugador los objetos de la sala actual y las conexiones de salida.
-void examinar(sala *s, objetos *o, partidas *p, jugador *j, conexion* c, int *numsal, int *numobj, int *numinv, int *numcon, int *jug, int *par) {
+void examinar(sala *s, objetos *o, partidas *p, jugador *j, conexion* c, int *numsal, int *numobj, int *numcon, int *jug, int *par) {
    int x,y,z,m;
    for(x=0; x<*numsal; x++){
         if(strcmp(p[*par].sala_actual, s[x].id_sala)==0){     //Verificación de la sala actual con la sala en vector
             for(y=0; y<*numobj; y++){
                 if(strcmp(s[x].id_sala, o[y].localiz)==0){      //Verificación de los objetos que estan en la sala
-                    for(z=0; z<*numinv; z++){
+                    for(z=0; z<j[*jug].tamainv; z++){
                         if (strcmp(o[y].id_obj, j[*jug].inv[z].objinv)!=0){
                             printf("Objeto: %s\nDescripcion: %s\n", o[y].nomb_obj, o[y].desc);
                         }
@@ -97,13 +136,16 @@ void examinar(sala *s, objetos *o, partidas *p, jugador *j, conexion* c, int *nu
             }
         }
     }
+       printf("Presiona Enter para volver al menú de juego...");
+                getchar();
+                getchar();
 }
 
 
 //Cabecera: void mostrarinventario(jugadores *j, objetos *o, partida p, int *jug)
 //Precondición: La funcion recive la estructura de jugadores, objetos y partida inicializada
 //Postcondición: El jugador mostrara los objetos que tiene en su inventario
-void mostrarinventario(jugador *j, objetos *o, partidas p, int * jug){
+void mostrarinventario(jugador *j, objetos *o, partidas *p, int * jug){
     int x,y;
     printf("Los objetos en tu inventario son:\n");
     for(x=0; x<=j[*jug].cant_obj; x++){
@@ -114,6 +156,9 @@ void mostrarinventario(jugador *j, objetos *o, partidas p, int * jug){
             }
         }
     }
+       printf("Presiona Enter para volver al menú de juego...");
+                getchar();
+                getchar();
 }
 
 
@@ -124,11 +169,11 @@ void mostrarinventario(jugador *j, objetos *o, partidas p, int * jug){
 void resolver(puzle *puz, partidas *p, int *numpuz, int *par){
     char c[5];
     int x,y,resolver;
-    for(x=0; x<=numpuz; x++){
+    for(x=0; x<=*numpuz; x++){
         if(strcmp(p[*par].sala_actual, puz[x].id_sala)==0){           //Comprobamos que el puzle este en la sala actual
             printf("El puzle es de tipo %s\nDescripcion: %s\n", puz[x].tipo, puz[x].desc);
             for(y=0; y<p[*par].num_puzles; y++){
-                if(p[*par].puzles_estado[y].resuelto==true){          //Nos dice si el puzle esta resuelto o no
+                if(p[*par].puzles_estado[y].resuelto==1){          //Nos dice si el puzle esta resuelto o no
                     printf("El puzle %s ya ha sido resuelto.\n", puz[x].nomb_puz);
                 }
                 else{
@@ -143,6 +188,9 @@ void resolver(puzle *puz, partidas *p, int *numpuz, int *par){
             }
         }
     }
+       printf("Presiona Enter para volver al menú de juego...");
+                getchar();
+                getchar();
     
 }
 
@@ -192,21 +240,24 @@ void soltarobjeto(puzle *puz, partidas *p, int *numpuz, jugador *j, objetos *o, 
             
 
 }
+   printf("Presiona Enter para volver al menú de juego...");
+                getchar();
+                getchar();
 }
 
 
 //Cabecera: void entrarsala(partida *p, conexion *co,sala *s , conexion *econ, int *numcon, int *numsal, int *par)
 //Precondición: La función recive la estructura de partida, conexion y sala y el vector de conexiones inicializados
 //Postcondición: El jugador se movera entre salas si es posible
-void entrarsala(partidas *p, conexion* co, sala *s, conexion *econ, int *numcon, int *numsal, int *par){
-    bool des=false;
+void entrarsala(partidas *p, conexion* co, sala *s,int *numcon, int *numsal, int *par){
+    bool des=0;
     int entrar, x,y,z;
-    for (int i=0; i<=numcon; i++){
+    for (int i=0; i<=*numcon; i++){
         if (strcmp(co[i].id_conexion,p[*par].sala_actual)==0){   //Si el id de la conexion coincide con el id de la sala actual del jugador, se comprueba si la conexion esta activa o bloqueada))
             for (y=0; y<=p[*par].num_conexunlocked || strcmp(co[i].id_conexion,p[*par].conex_desbloqueadas[y].id_conexion)==0; y++){
-                des=true;   //Si la conexion esta desbloqueada, se marca como desbloqueada para que el jugador pueda entrar a la sala
+                des=1;   //Si la conexion esta desbloqueada, se marca como desbloqueada para que el jugador pueda entrar a la sala
             }
-            if (des==true){
+            if (des==1){
                 do {
                     for(x=0; x<*numsal; x++){       //Contador para salas
                     }
@@ -218,6 +269,9 @@ void entrarsala(partidas *p, conexion* co, sala *s, conexion *econ, int *numcon,
             else printf("La conexión de la sala esta bloqueada, solucion: %s",co[i].cond);
 }
 }
+   printf("Presiona Enter para volver al menú de juego...");
+                getchar();
+                getchar();
 }
 
 
@@ -228,11 +282,11 @@ void usarobjeto(objetos *o,partidas *p, conexion *c, jugador *j, int *jug, int *
     int usar, i;
     int x,y,z;
     p[*par].conex_desbloqueadas=NULL;
-    for (int i=0; i<=numobj; i++){
+    for (int i=0; i<=*numobj; i++){
         if (strcmp(c[i].id_conexion,p[*par].sala_actual)==0){                             //Comprobamos que la conexión de la sala actual
             for(y=0; y<=j[*jug].cant_obj; y++){
                 if (strcmp(c[i].cond,j[*jug].inv[y].objinv)==0){             //Buscamos en el inventario si hay un objeto que pueda abrir la conexion
-                    for(z=0;z<=numobj; z++){
+                    for(z=0;z<=*numobj; z++){
                         if (strcmp(o[z].id_obj,j[*jug].inv[y].objinv)==0){   //Tomamos el objeto del vector de objetos que es igual al inventario
                             do{
                             printf("Puedes usar el objeto %s en la sala\n ¿quieres usarlo? Si:1 No:0 \n", o[z].nomb_obj);
@@ -250,6 +304,9 @@ void usarobjeto(objetos *o,partidas *p, conexion *c, jugador *j, int *jug, int *
             }
         }
     }
+       printf("Presiona Enter para volver al menú de juego...");
+                getchar();
+                getchar();
 }
 
 
@@ -258,43 +315,40 @@ void usarobjeto(objetos *o,partidas *p, conexion *c, jugador *j, int *jug, int *
 //Postcondición: Verifica si el usuario existe o no, y si la contraseña es correcta o no
 void verificarusuario(jugador *j, int *numjug, int *jug, partidas *p, int *numpar, int *par){
     char usuario[21], password[9];
-    int correcto=0,x;
-    do{
-        printf("Ingrese su nombre de usuario: \n");     
-        scanf("%s",usuario);                            //Se pide el nombre de usuario hasta que se meta el adecuado
-        for(x=0;x<*numjug;x++){
-            if(strcmp(usuario,j[x].nomb_jugador)==0){    //Si se encuentra el usuario, se pide la contraseña
-                printf("Ingrese su contraseña: \n");
-                scanf("%s",password);                   
-                do{
-                    if(strcmp(password,j[x].password)==0){          //Si la contraseña es correcta, se le da la bienvenida al jugador y se guarda su posición en el vector de jugadores para usarla posteriormente
-                        printf("Bienvenido %s\n",j[x].nomb_jugador);
-                        *jug=x;
-                        correcto=1;
-                    }else{
-                        printf("Contraseña incorrecta, intente de nuevo: \n");      //Si la contraseña es incorrecta, se le vuelve a pedir hasta que lo sea
-                        scanf("%s",password);
+    int x;
+    
+    printf("\n=== ACCESO AL SISTEMA ===\n");
+    
+    while(1) {
+        printf("Ingrese su nombre de usuario: ");
+        scanf("%s", usuario);
+        
+        printf("Ingrese su contrasena: ");
+        scanf("%s", password);
+        
+        for(x = 0; x < *numjug; x++) {
+            if(strcmp(usuario, j[x].jugador) == 0 && strcmp(password, j[x].password) == 0) {
+                printf("Bienvenido %s\n", j[x].nomb_jugador);
+                *jug = x;
+                
+                // Buscar partida
+                for(x = 0; x < *numpar; x++) {
+                    if(strcmp(j[*jug].id_jugador, p[x].jug_actual) == 0) {
+                        *par = x;
+                        printf("Partida cargada.\n");
+                        return;
                     }
-                }while(correcto==0);
-            }
-            else{
-                printf("Usuario no encontrado, intente de nuevo: \n");              //Aviso si el usuario es incorrecto, luego se volvera a pedir
-            }
-        }
-    }while(correcto!=1);
-
-    correcto=0;
-    do{
-        for(x=0;x<*numpar;x++){
-            if (strcmp(j[*jug].id_jugador, p[x].jug_actual)==0){      //Se compara el id del jugador con el id de la partida en el vector
-                correcto=1;
-                *par=x;
+                }
+                
+                printf("No se encontro partida. Se creara una nueva.\n");
+                *par = 0;
+                return;
             }
         }
-    }while(correcto!=1);
+        
+        printf("Usuario o contrasena incorrectos.\n");
+    }
 }
-
-
 
 //Cabecera: void nuevapartida(jugador *j, partida *p, int *jug, int *numpar)
 //Precondición: Las estructuras de  jugadores y partida deben estar inicializadas
@@ -303,11 +357,11 @@ void nuevapartida(jugador *j, partidas *p, sala *s, int *jug, int *njug , int *p
     int correcto=0,repetido=0, x, y;
 
     j= (jugador*) realloc(j, ((*njug)+1)*sizeof(jugador));
-    *jug=njug-1;
+    *jug = (*njug) - 1;
 
     /*Comienzo con la estructura del jugador*/
     //Creación del identificador del jugador
-    if(jug<10){
+    if(*jug<10){
         sprintf(j[*(njug-1)].id_jugador, "%02d", *jug);         //Si el numero es menor a 10 se le añade delante un 0
     }
     else{
@@ -322,7 +376,7 @@ void nuevapartida(jugador *j, partidas *p, sala *s, int *jug, int *njug , int *p
             scanf("%d", &correcto);
         }while (correcto!=0 && correcto!=1);
 
-    }while(correcto!=0);
+    }while(correcto!=1);
 
     correcto=0;
 
@@ -332,7 +386,7 @@ void nuevapartida(jugador *j, partidas *p, sala *s, int *jug, int *njug , int *p
         scanf("%s", j[*(njug-1)].jugador);
 
         do{
-            for (y=0; y<njug; y++){
+            for (y=0; y<*njug; y++){
                 if(strcmp(j[*(njug-1)].jugador, j[y].jugador)==0){        //Comprobamos que el nombre de usuario no esta repetido
                     printf("El nombre de usuario ya existe, introduce otro: \n");
                     scanf("%s", j[*(njug-1)].jugador);
@@ -345,7 +399,7 @@ void nuevapartida(jugador *j, partidas *p, sala *s, int *jug, int *njug , int *p
             scanf("%d", &correcto);
         }while (correcto!=0 && correcto!=1);
 
-    }while(correcto!=0);
+    }while(correcto!=1);
 
     correcto=0;
 
@@ -358,10 +412,11 @@ void nuevapartida(jugador *j, partidas *p, sala *s, int *jug, int *njug , int *p
         printf("La contraseña introducida es: %s, ¿es correcta? Si:1 No:0 \n", j[*njug].password);
         scanf("%d", &correcto);
         }while (correcto!=0 && correcto!=1);
-    }while(correcto!=0);
+    }while(correcto!=1);
 
 
     //El inventario se inicializa vacio y el jugador empieza en la sala de inicio
+    j[*(njug-1)].inv=NULL;
     int cant_obj=0;
     int tamainv=10;
 
@@ -369,23 +424,28 @@ void nuevapartida(jugador *j, partidas *p, sala *s, int *jug, int *njug , int *p
 
     /*Inicialización de la estructura de la partida*/
     //Jugador actual
-    *par++;
+   
+    *par++; 
     p = (partidas*) realloc(p, (*par+1)*sizeof(partidas));
+    p[*par].puzles_estado=NULL;
+    p[*par].conex_desbloqueadas=NULL;
     strcpy(j[*(njug-1)].id_jugador, p[*(par)].jug_actual);
 
-    //Sala actual
-    for(x=0; x<=numpar; x++){
-        if(strcmp(s[x].tipo, "INICIO")==0){
-            strcpy(p[*par].sala_actual, s[x].id_sala);
-        }
+   // Sala actual
+for(x = 0; x < *numpar; x++){
+    if(s[x].tipo == INICIAL){
+        strcpy(p[*par].sala_actual, s[x].id_sala);
+        break;
     }
-
+}
     //La partida empieza sin conexiones desbloqueadas ni puzles resueltos
     p[*par].num_conexunlocked=0;
     p[*par].conex_desbloqueadas = realloc(p[*par].conex_desbloqueadas, p[*par].num_conexunlocked*sizeof(conexunlocked));
 
     p[*par].num_puzles=0;
     p[*par].puzles_estado = realloc(p[*par].puzles_estado, p[*par].num_puzles*sizeof(puzleresuelto));
-
+   printf("Presiona Enter para ir al menú de juego...");
+                getchar();
+                getchar();
 }
 

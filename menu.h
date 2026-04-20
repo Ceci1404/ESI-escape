@@ -1,14 +1,19 @@
 #ifndef MENU_H
 #define MENU_H
-
+#include "partida.h"
+#include "salas.h"
+#include "conexiones.h"
+#include "jugadores.h"
+#include "objetos.h"
+#include "puzles.h"
 
 // --- PROTOTIPOS DE LAS FUNCIONES DEL MENÚ ---
 
 // Inicia el programa y muestra las opciones de Nueva Partida, Cargar o Salir
-void menu_principal(partidas *, sala *, conexion *, jugador *, objetos *, puzle *, int *, int *, int *, int *, int *, int *, int *);
+void menu_principal(partidas *, sala *, conexion *, jugador *, objetos *, puzle *,int*, int* , int *, int *, int *, int *, int *, int *);
 
 // Bucle principal donde el jugador decide qué acciones tomar dentro de la sala
-void menu_juego(partidas *, sala *, conexion *, jugador *, objetos *, puzle *, int *, int *, int*, int *, int *, int *, int *);
+void menu_juego(partidas *, sala *, conexion *, jugador *, objetos *, puzle *, int *, int *, int *, int*, int*, int *, int *, int *);
 
 /*
 // Gestiona la creación de un nuevo jugador y el inicio desde cero
