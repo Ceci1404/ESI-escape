@@ -424,3 +424,53 @@ for(x = 0; x < *numpar; x++){
                 getchar();
 }
 
+
+//Mario
+cargar_partida_existente(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas) {
+    char user[11];
+    char pass[9];
+    int id_numerico_jugador = -1;
+
+    printf("\n--- ACCESO ESI-ESCAPE ---\n");
+    printf("Usuario: ");
+    scanf("%10s", user);
+    printf("Contrasena: ");
+    scanf("%8s", pass);
+
+    // 1. Buscamos al jugador en el array de jugadores usando un 'if' clásico
+    for (int i = 0; i < total_jugadores; i++) {
+        
+        // Si el usuario y la contraseña coinciden...
+        if (strcmp(lista_jugadores[i].jugador, user) == 0 && 
+            strcmp(lista_jugadores[i].password, pass) == 0) {
+            
+            // Convertimos su ID de texto ("01") a número (1)
+            id_numerico_jugador = atoi(lista_jugadores[i].id_jugador);
+            printf("\n¡Bienvenido, %s!\n", lista_jugadores[i].nomb_jugador);
+            break; // Rompemos el bucle porque ya lo hemos encontrado
+        }
+    }
+
+    // Si el ID sigue siendo -1, es que el 'if' anterior nunca se cumplió
+    if (id_numerico_jugador == -1) {
+        printf("Error: Usuario o contrasena incorrectos.\n");
+        return NULL;
+    }
+
+    // 2. Buscamos su partida correspondiente en el array de partidas
+    for (int i = 0; i < total_partidas; i++) {
+        
+        // Si el número de jugador de la partida coincide con el nuestro...
+        if (lista_partidas[i].jug_actual == id_numerico_jugador) {
+            printf("Partida encontrada. Cargando sala %d...\n", lista_partidas[i].sala_actual);
+            
+            // Devolvemos el puntero exacto a su partida
+            return &lista_partidas[i]; 
+        }
+    }
+
+    // Si el bucle termina y no ha devuelto nada (return), es que no hay partida
+    printf("Aviso: No se encontraron datos de partida para este usuario.\n");
+    return NULL;
+}
+

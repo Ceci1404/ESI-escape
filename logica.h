@@ -63,3 +63,11 @@ void verificarusuario(jugador *, int *, int *, partidas *, int *, int *);
 //Postcondición: Se añadira un nuevo jugador en el vector de jugadores y se inicializara la partida con los datos del nuevo jugador
 void nuevapartida(jugador *, partidas *,sala *, int *, int *, int *, int *);
 #endif
+
+
+//Cabecera: partidas* cargar_partida_existente(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas)
+//Precondición: total_jugadores >= 0 y total_partidas >= 0. Si son mayores que 0, lista_jugadores y lista_partidas deben ser punteros válidos (distintos de NULL)
+//Postcondición: Solicita usuario y contraseña por entrada estándar. 
+//Si coinciden con un jugador registrado, busca y devuelve un puntero a su partida en curso. 
+//Si las credenciales fallan o el usuario no tiene partida activa, notifica el error por pantalla y devuelve NULL.
+cargar_partida_existente(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas)

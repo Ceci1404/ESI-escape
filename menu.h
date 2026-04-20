@@ -16,7 +16,7 @@ void menu_principal(partidas *, sala *, conexion *, jugador *, objetos *, puzle 
 void menu_juego(partidas *, sala *, conexion *, jugador *, objetos *, puzle *, int *, int *, int *, int*, int*, int *, int *, int *);
 
 /*
-// Gestiona la creación de un nuevo jugador y el inicio desde cero
+// Gestiona la creación de un nuevo jugador y el inicio desde cero  , ESTA EN LOGICA.C
 void crear_nueva_partida(partidas *, jugador *, int *);*/
 // Gestiona la carga de datos del disco duro para restaurar el progreso
 /*int cargar_partida_existente(partidas *, jugador *, int *, int *);

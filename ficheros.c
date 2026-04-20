@@ -12,9 +12,7 @@
 #include <string.h>
 //SUSANA v 
 
-//Cabecera: void limpiar(char* buffer)
-//Precondición: buffer != NULL y tiene tamaño de 200
-//Postcondición: buffer es devuelto siendo todos sus caracteres '\0'
+
 
 void limpiar(char* buffer) {  
     for (int i = 0; i < 200; i++) {
@@ -23,9 +21,7 @@ void limpiar(char* buffer) {
 }
 
 
-//Cabecera: char* ficherotocad(char* filepath, char* cad)
-//Precondición: filepath es cadena válida, el archivo existe y se puede leer
-//Postcondición: devuelve cadena dinámica con contenido del archivo (NULL si error)
+
 char* ficherotocad(char* filepath, char* cad) {
     int lineas = 1;
     const int maxlinea = 200;
@@ -67,7 +63,7 @@ char* ficherotocad(char* filepath, char* cad) {
 
 
 //se deben declarar en el main como variables que se actualicen cada vez que se modifique el número de jugadores o el número de partidas
-
+//Mario
 void guardar_datos(jugador *lista_jugadores, int total_jugadores, partidas *p_activa) {
     
     printf("\n[SISTEMA] Iniciando guardado de seguridad...\n");
