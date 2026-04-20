@@ -52,7 +52,6 @@ printf("No hay ningún objeto en esta sala\n");
 //Cabecera: void describir(salas *s, partida p, int *numsal, int *par)
 //Precondición: La funcion recive la estructura de salas y partida inicializada
 //Postcondición: El jugador ver la descripcion de la sala en la que se encuentra y si es la salida, se le preguntara si quiere volver al menu principal
-partidas *, sala *, conexion *, jugador *, objetos *, puzle *,int*, int* , int *, int *, int *, int *, int *, int *
 void describir( partidas * p, sala *s, conexion *c, jugador *j, objetos *o, puzle *pu,int *numsal, int *numobj, int *numcon, int *numpuz, int *numpar, int *numjug, int *jug, int *par){
     int x, volver;
     for(x=0; x<=*numsal; x++){
@@ -65,17 +64,18 @@ void describir( partidas * p, sala *s, conexion *c, jugador *j, objetos *o, puzl
                     printf("Quieres volver al menu principal? Si:1 No:0 \n");       //Da la opción es afirmativa se llamara al menu principal
                     scanf("%d", &volver);
                     if (volver==1){
-                        menu(p, s, c, j,o,p,numsal, numobj, numcon, numpuz, numpar, numjug, jug, par);
+                        menu_principal(p, s, c, j,o, pu ,numsal, numobj, numcon, numpuz, numpar, numjug, jug, par);
                 }
-                    } 
+                    
                 }while(volver!=1 && volver!=0);
             }
         }
-    }
-       printf("Presiona Enter para volver al menú de juego...");
+    }printf("Presiona Enter para volver al menú de juego...");
                 getchar();
                 getchar();
 }
+       
+
 
 //Cabecera: void examinar(salas *s, objetos *o, partida p, jugador j, conexion* c, int *numsal, int *numobj, int *numcon, int *jug)
 //Precondición: La funcion recive la  estructura de salas, objetos, partida y jugador inicializadas
@@ -291,7 +291,7 @@ void verificarusuario(jugador *j, int *numjug, int *jug, partidas *p, int *numpa
         printf("Ingrese su nombre de usuario: \n");     
         scanf("%s",usuario);                            //Se pide el nombre de usuario hasta que se meta el adecuado
         for(x=0;x<*numjug;x++){
-            if(strcmp(usuario,j[x].nom_jugador)==0){    //Si se encuentra el usuario, se pide la contraseña
+            if(strcmp(usuario,j[x].nomb_jugador)==0){    //Si se encuentra el usuario, se pide la contraseña
                 printf("Ingrese su contraseña: \n");
                 scanf("%s",password);                   
                 do{
