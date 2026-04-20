@@ -102,20 +102,20 @@ int main() {
         printf("ERROR: No se pudo cargar partida.txt\n");
         return 1;
     }
-    printf("    Archivo cargado, longitud: %ld bytes\n", strlen(cad));
+ 
     
     printf("12. Creando partidas...\n");
     p = crearpar(cad, &numpar);
     printf("    numpar = %d\n", numpar);
     free(cad);
     cad = NULL;
-      Sleep(3000);
+      Sleep(1000);
     //system("cls");
     
     printf("\n13. Iniciando menú principal...\n");
 
 
-    Sleep(3000);
+    Sleep(1000);
     //system("cls");
 
     menu_principal(p, s, c, j, o, puz, &numsal, &numobj, &numcon, &numpuz, &numpar, &numjug, &jug, &par);
