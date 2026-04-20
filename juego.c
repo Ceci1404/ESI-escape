@@ -12,7 +12,9 @@
 #include <string.h>
 
 
-
+//Cabecera: char* obtenercad(char* cad, int* pcad, char* buffer)
+//Precondición: cad no es NULL, pcad apunta a un índice válido dentro de cad
+//Postcondición: buffer contiene el siguiente token (hasta '-' o '\n'), pcad avanza o se pone a -1 si es fin
 char* obtenercad(char* cad, int* pcad, char* buffer) {
     int j = 0;
     // FINAL
