@@ -1,8 +1,8 @@
 División de módulos:
 
-Ficheros-------> Susana Fernandez Sierra (Encargada de módulo), Mario De Serdio Enriquez,Francisco José Mellado Vidal(funcion:Login)
+Ficheros-------> Susana Fernandez Sierra (Encargada de módulo: limpiar, ficherotocad), Mario De Serdio Enriquez.
 Juego----------> Susana Fernandez Sierra.
-Logica---------> Cecilia Gallardo Acevedo,Francisco José Mellado Vidal(funcion:CREAR NUEVA PARTIDA),Mario De Serdio Enríquez
+Logica---------> Cecilia Gallardo Acevedo.
 Menú-----------> Francisco José Mellado Vidal (Encargado de módulo), Susana Fernandez Sierra, Cecilia Gallardo Acevedo.
 Objetos--------> Susana Fernandez Sierra.
 Partida--------> Susana Fernandez Sierra.
