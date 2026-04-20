@@ -67,7 +67,7 @@ char* ficherotocad(char* filepath, char* cad) {
 
 
 //se deben declarar en el main como variables que se actualicen cada vez que se modifique el número de jugadores o el número de partidas
-
+//Mario
 void guardar_datos(jugador *lista_jugadores, int total_jugadores, partidas *p_activa) {
     
     printf("\n[SISTEMA] Iniciando guardado de seguridad...\n");
