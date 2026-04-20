@@ -52,14 +52,14 @@ sala* crearsala(char* cad, int *numsal) {
     int pcad = 0;
     char buffer[151];
     
-    printf("  [crearsala] Iniciando...\n");
+    //printf("  [crearsala] Iniciando...\n");
     
-    while(1) {
-        // Intentar leer ID
+    do{
+        //comprobación inicial de que el fichero tiene texto
         obtenercad(cad, &pcad, buffer);
         if(pcad == -1 || strlen(buffer) == 0) break;
         
-        printf("  [crearsala] Leyendo sala %d: ID=%s\n", nsal+1, buffer);
+        //printf("  [crearsala] Leyendo sala %d: ID=%s\n", nsal+1, buffer);
         
         sal = (sala*)realloc(sal, (nsal + 1) * sizeof(sala));
         strcpy(sal[nsal].id_sala, buffer);
@@ -74,19 +74,15 @@ sala* crearsala(char* cad, int *numsal) {
             sal[nsal].tipo = NORMAL;
         else if(strcmp(buffer, "SALIDA") == 0) 
             sal[nsal].tipo = SALIDA;
-        else {
-            printf("  [crearsala] ERROR: Tipo desconocido '%s'\n", buffer);
-            sal[nsal].tipo = NORMAL;
-        }
         
         obtenercad(cad, &pcad, buffer);
         strcpy(sal[nsal].descrip, buffer);
         
         nsal++;
-    }
+    }while (pcad!=-1);
     
     *numsal = nsal;
-    printf("  [crearsala] Total salas creadas: %d\n", nsal);
+    printf("  [crearsala] Total salas creadas: %d\n", nsal); //para comprobar funcionamiento
     return sal;
 }
 
@@ -104,11 +100,11 @@ conexion* crearconex(char* cad, int *numcon){
     
     printf("  [crearconex] Iniciando...\n");
     
-    while(1) {
+    do{
         obtenercad(cad, &pcon, buffer);
         if(pcon == -1 || strlen(buffer) == 0) break;
         
-        printf("  [crearconex] Leyendo conexión %d: ID=%s\n", ncon+1, buffer);
+        //printf("  [crearconex] Leyendo conexión %d: ID=%s\n", ncon+1, buffer);
         
         con = (conexion*) realloc(con, (ncon + 1) * sizeof(conexion));
         strcpy(con[ncon].id_conexion, buffer);
@@ -129,7 +125,7 @@ conexion* crearconex(char* cad, int *numcon){
         strcpy(con[ncon].cond, buffer);
         
         ncon++;
-    }
+    }while (pcon!=-1);
     
     *numcon = ncon;
     printf("  [crearconex] Total conexiones creadas: %d\n", ncon);
@@ -147,9 +143,9 @@ jugador* crearjug(char* cad, int *numjug){
     int pjug = 0;
     char buffer[151];
     
-    printf("  [crearjug] Iniciando...\n");
+    //printf("  [crearjug] Iniciando...\n");
     
-    while(1) {
+    do{
         obtenercad(cad, &pjug, buffer);
         if(pjug == -1 || strlen(buffer) == 0) break;
         
@@ -176,20 +172,20 @@ jugador* crearjug(char* cad, int *numjug){
         strcpy(jug[njug].password, buffer);
         
         // Leer objetos del inventario
-        while(pjug != -1 && cad[pjug] != '\0' && cad[pjug] != '\n') {
+        while(cad[pjug] != '\n') {
+            if (pjug==-1) break;
             obtenercad(cad, &pjug, buffer);
-            if(strlen(buffer) > 0 && buffer[0] != '\0') {
                 strcpy(jug[njug].inv[jug[njug].cant_obj].objinv, buffer);
                 jug[njug].cant_obj++;
-            }
         }
-        
+        /*
         printf("  [crearjug] Jugador %d: id=%s, nombre=%s, usuario=%s, pass=%s, objetos=%d\n", 
                njug, jug[njug].id_jugador, jug[njug].nomb_jugador, 
                jug[njug].jugador, jug[njug].password, jug[njug].cant_obj);
+               */
         
         njug++;
-    }
+    }while (pjug!=-1);
     
     *numjug = njug;
     printf("  [crearjug] Total jugadores: %d\n", njug);
@@ -206,13 +202,13 @@ objetos* crearobj(char* cad, int* numobj){
     int pobj = 0;
     char buffer[151];
     
-    printf("  [crearobj] Iniciando...\n");
+    //printf("  [crearobj] Iniciando...\n");
     
-    while(1) {
+    do{
         obtenercad(cad, &pobj, buffer);
         if(pobj == -1 || strlen(buffer) == 0) break;
         
-        printf("  [crearobj] Leyendo objeto %d: ID=%s\n", nobj+1, buffer);
+        //printf("  [crearobj] Leyendo objeto %d: ID=%s\n", nobj+1, buffer);
         
         obj = (objetos*) realloc(obj, (nobj + 1) * sizeof(objetos));
         strcpy(obj[nobj].id_obj, buffer);
@@ -227,7 +223,7 @@ objetos* crearobj(char* cad, int* numobj){
         strcpy(obj[nobj].localiz, buffer);
         
         nobj++;
-    }
+    }while (pobj!=-1);
     
     *numobj = nobj;
     printf("  [crearobj] Total objetos creados: %d\n", nobj);
@@ -245,13 +241,13 @@ puzle* crearpuz(char* cad, int* numpuz){
     int ppuz = 0;
     char buffer[151];
     
-    printf("  [crearpuz] Iniciando...\n");
+    //printf("  [crearpuz] Iniciando...\n");
     
-    while(1) {
+    do{
         obtenercad(cad, &ppuz, buffer);
         if(ppuz == -1 || strlen(buffer) == 0) break;
         
-        printf("  [crearpuz] Leyendo puzle %d: ID=%s\n", npuz+1, buffer);
+        //printf("  [crearpuz] Leyendo puzle %d: ID=%s\n", npuz+1, buffer);
         
         puz = (puzle*) realloc(puz, (npuz + 1) * sizeof(puzle));
         strcpy(puz[npuz].id_puzle, buffer);
@@ -275,7 +271,7 @@ puzle* crearpuz(char* cad, int* numpuz){
         strcpy(puz[npuz].sol, buffer);
         
         npuz++;
-    }
+    }while(ppuz!=-1);
     
     *numpuz = npuz;
     printf("  [crearpuz] Total puzles creados: %d\n", npuz);
@@ -362,15 +358,9 @@ partidas* crearpar(char* cad, int* numpar){
     int ppar = 0;
     char buffer[151];
     
-    printf("  [crearpar] Iniciando...\n");
-    
-    if(cad == NULL || strlen(cad) == 0) {
-        printf("  [crearpar] ERROR: cadena vacía\n");
-        *numpar = 0;
-        return NULL;
-    }
-    
-    while(ppar != -1 && ppar < (int)strlen(cad)) {
+    //printf("  [crearpar] Iniciando...\n");
+
+    do{
         int nobj = 0, ncond = 0, npuz = 0;
         
         // Leer "JUGADOR:"
@@ -450,8 +440,8 @@ partidas* crearpar(char* cad, int* numpar){
         par[npar].num_puzles = npuz;
         
         npar++;
-        printf("  [crearpar] Partida %d cargada: Jugador=%s, Sala=%s\n", npar, par[npar-1].jug_actual, par[npar-1].sala_actual);
-    }
+        //printf("  [crearpar] Partida %d cargada: Jugador=%s, Sala=%s\n", npar, par[npar-1].jug_actual, par[npar-1].sala_actual);
+    }while (ppar!=-1);
     
     *numpar = npar;
     printf("  [crearpar] Total partidas creadas: %d\n", npar);

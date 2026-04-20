@@ -9,7 +9,7 @@
 #include "logica.h"
 #include "menu.h"
 #include <stdio.h>
-
+#include <Windows.h>
 int main() {
     int numsal = 0, numobj = 0, numcon = 0, numpuz = 0, numjug = 0, numpar = 0;
     int jug = 0;
@@ -32,7 +32,6 @@ int main() {
         printf("ERROR: No se pudo cargar salas.txt\n");
         return 1;
     }
-    printf("   Archivo cargado, longitud: %ld bytes\n", strlen(cad));
     
     printf("2. Creando salas...\n");
     s = crearsala(cad, &numsal);
@@ -47,7 +46,6 @@ int main() {
         printf("ERROR: No se pudo cargar conexiones.txt\n");
         return 1;
     }
-    printf("   Archivo cargado, longitud: %ld bytes\n", strlen(cad));
     
     printf("4. Creando conexiones...\n");
     c = crearconex(cad, &numcon);
@@ -62,7 +60,6 @@ int main() {
         printf("ERROR: No se pudo cargar jugadores.txt\n");
         return 1;
     }
-    printf("   Archivo cargado, longitud: %ld bytes\n", strlen(cad));
     
     printf("6. Creando jugadores...\n");
     j = crearjug(cad, &numjug);
@@ -77,7 +74,6 @@ int main() {
         printf("ERROR: No se pudo cargar objetos.txt\n");
         return 1;
     }
-    printf("   Archivo cargado, longitud: %ld bytes\n", strlen(cad));
     
     printf("8. Creando objetos...\n");
     o = crearobj(cad, &numobj);
@@ -92,7 +88,6 @@ int main() {
         printf("ERROR: No se pudo cargar puzles.txt\n");
         return 1;
     }
-    printf("   Archivo cargado, longitud: %ld bytes\n", strlen(cad));
     
     printf("10. Creando puzles...\n");
     puz = crearpuz(cad, &numpuz);
@@ -114,13 +109,17 @@ int main() {
     printf("    numpar = %d\n", numpar);
     free(cad);
     cad = NULL;
-    
-    printf("=== TODO CARGADO CORRECTAMENTE ===\n");
-    printf("Resumen: %d salas, %d conexiones, %d jugadores, %d objetos, %d puzles, %d partidas\n",
-           numsal, numcon, numjug, numobj, numpuz, numpar);
+      Sleep(3000);
+    //system("cls");
     
     printf("\n13. Iniciando menú principal...\n");
+
+
+    Sleep(3000);
+    //system("cls");
+
     menu_principal(p, s, c, j, o, puz, &numsal, &numobj, &numcon, &numpuz, &numpar, &numjug, &jug, &par);
 
     return 0;
 }
+
