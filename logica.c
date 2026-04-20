@@ -425,7 +425,7 @@ for(x = 0; x < *numpar; x++){
 }
 
 
-
+//Mario
 cargar_partida_existente(jugador *lista_jugadores, int total_jugadores, partidas *lista_partidas, int total_partidas) {
     char user[11];
     char pass[9];
